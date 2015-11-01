@@ -1,0 +1,40 @@
+
+# remove all containers
+docker rm -f `docker ps -a -q`
+
+# stop controller.py
+kill -9 `ps aux | grep controller | awk '{print $2}'`
+
+# build ckcz123/tomcat
+# docker rmi ckcz123/tomcat
+# docker build -t ckcz123/tomcat .
+
+# start pop2016
+rm -f /root/pop2016/docker.log
+unzip -o /root/pop2016/ROOT.war -d /root/pop2016/tomcat/webapps/ROOT/
+nohup docker run -id -p 80:8080 --name pop2016 -v /root/pop2016/tomcat/webapps/ROOT/:/usr/local/tomcat/webapps/ROOT/:ro ckcz123/tomcat >/dev/null 2>&1
+nohup docker logs -f -t pop2016 >/dev/null 2>/root/pop2016/docker.log &
+
+# start ephphtml
+"""
+rm -f /root/ephphtml/docker.log
+unzip -of /root/ephphtml/ROOT.war -d /root/ephphtml/tomcat/webapps/ROOT/
+nohup docker run -id -p 8000:8080 --name ephphtml -v /root/ephphtml/tomcat/webapps/ROOT/:/usr/local/tomcat/webapps/ROOT/:ro -v /root/data/:/data/:rw ckcz123/tomcat >/dev/null 2>&1
+nohup docker logs -t -f ephphtml >/dev/null 2>/root/ephphtml/docker.log &
+"""
+
+# start editor
+rm -f /root/editor/docker.log
+unzip -o /root/editor/ROOT.war -d /root/editor/tomcat/webapps/ROOT/
+nohup docker run -id -p 8000:8080 --name editor -v /root/editor/tomcat/webapps/ROOT/:/usr/local/tomcat/webapps/ROOT/:ro -v /root/data/:/data/:rw ckcz123/tomcat >/dev/null 2>&1
+nohup docker logs -t -f editor >/dev/null 2>/root/editor/docker.log &
+
+# build php image
+bash /root/runner/php/build.sh
+
+# build python image
+bash /root/runner/python/build.sh
+
+# start controller
+nohup python controller.py >/dev/null 2>/root/controller/controller.log &
+

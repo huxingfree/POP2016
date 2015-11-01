@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Status of all runners</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        div.panel, div.page-header {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        th, td {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("#refresh").click(function() {
+            window.location.reload();
+        });
+        $(".delete").click(function() {
+            var pname = $(this).parent().parent().attr('id');
+            var btn = $(this);
+            $.post("delete",{pname: pname},
+                    function(data) {
+                        if (data.code==0) {
+                            window.location.reload();
+                        }
+                        else {
+                            $("div.modal-body").text(data.msg);
+                            $("div.modal").modal({keyboard: true});
+                        }
+                    },
+                   "json");
+        });
+    });
+    </script>
+</head>
+<body>
+<div class="page-header">
+    <h2><span><button id="refresh" class="btn btn-primary">Refresh</button></span> Monitoring page for pop2016</h2>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Runners' Status</h4>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>url</th>
+            <th>docker id</th>
+            <th>type</th>
+            <th>appname</th>
+            <th>owner</th>
+            <th>user</th>
+            <th>time</th>
+            <th>operation</th>
+        </tr>
+        {% for runner in runners%}
+        <tr id="{{ runner.pname }}">
+            <td><a href="http://{{runner.domain}}:{{runner.port}}/" target="_blank">http://{{runner.domain}}:{{runner.port}}/</a></td>
+            <td>{{ runner.dockerid }}</td>
+            <td>{{ runner.ptype }}</td>
+            <td>{{ runner.appname }}</td>
+            <td>{{ runner.owner }}</td>
+            <td>{{ runner.user }}</td>
+            <td>{{ runner.time }}</td>
+            <td><button class="btn btn-danger delete">delete</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="panel-footer"><h5>{{ length }} runners in total.</h5></div>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Editors' Status</h4>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>docker id</th>
+            <th>path</th>
+            <th>status</th>
+        </tr>
+        {% for editor in editors%}
+        <tr>
+            <td>{{ editor.id }}</td>
+            <td>{{ editor.dockerid }}</td>
+            <th><a href="{{ editor.path }}" target="_blank">{{ editor.path }}</a></td>
+            <td>
+                <span class="label label-success">Running</span>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Homepage's Status</h4>
+    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>docker id</th>
+            <th>path</th>
+            <th>status</th>
+        </tr>
+        {% if homepage.status %}
+        <tr>
+            <td>{{ homepage.id }}</td>
+            <td>{{ homepage.dockerid }}</td>
+            <th><a href="{{ homepage.path }}" target="_blank">{{ homepage.path }}</a></td>
+            <td>
+                <span class="label label-success">Running</span>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Message" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
