@@ -10,7 +10,10 @@ LOG_PORT = 70000
 VALID_TYPES = ['php', 'python', 'javaweb'] # valid runner types
 TIME_INTERVAL = 60
 MANAGER = '-H tcp://0.0.0.0:50000'
+all_runners = {}
 # get user from token (according to database)
+
+
 def getuser(token):
     if token is None:
         return None

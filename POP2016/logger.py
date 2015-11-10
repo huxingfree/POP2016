@@ -78,11 +78,34 @@ def monitor():
         params = request.args
     else:
         params = request.form
-    services = list()
-    runners = list()
+    service_stats = {}
     stats = urllib2.urlopen(CONTROLLER+"/stats")
+    runners_stats={}
+    runners = []
+    services = []
+    try:
+        conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
+                               db='pop2016', port=3306)
+    except Exception, e:
+        return None
+    cursor = conn.cursor()
     for stat in stats:
-            return None
+        dockerid = stat['dockerid']
+        sql = "select sname,url from home_service where dockerid='%s' limit 1" % (dockerid)
+        count = cursor.execute(sql)
+        if count ==0:
+            runners_stats[stat['dockerid']] = stat
+        else:
+            result = cursor.fetchone()
+            service_name = result[0]
+            url = result[1]
+            service_stats[service_name] = stat
+            service = dict(url = url,service_name = service_name )
+            services.append(dict(service.items()+stat.items()))
+    for item in all_runners.items():
+        runner = item[1]
+        runners.append(dict(runner.items()+runners_stats[runner['dockerid']].items()))
+
 
 
 if __name__ == "__main__":
