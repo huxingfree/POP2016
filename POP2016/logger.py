@@ -1,5 +1,6 @@
 #from threading import Timer
 from flask import *
+from container_manager import *
 from log_util import *
 import urllib2
 import urllib
@@ -32,12 +33,13 @@ def app_log():
 
     pname = "%s...%s...%s...%s" % (ptype, owner, user, appname)
     runnerid = get_runnerid(pname)
-    param = urllib.urlencode({'runnerid': runnerid})
-    req = urllib2.urlopen(CONTROLLER+"/log", param)
-    response = urllib2.urlopen(req)
-    result = response.read()
-    result = log_filter(result)
+    result = log(runnerid, ptype)
     return result
+    # param = urllib.urlencode({'runnerid': runnerid,'type':ptype})
+    # req = urllib2.urlopen(CONTROLLER+"/log", param)
+    # response = urllib2.urlopen(req)
+    # result = response.read()
+    # result = log_filter(result)
 
 
 # interface for editor to get runner container status
@@ -64,43 +66,48 @@ def runner_stat():
         return reply(1, "You don't have permission to this runner!")
     pname = "%s...%s...%s...%s" % (ptype, owner, user, appname)
     runnerid = get_runnerid(pname)
-    param = urllib.urlencode({'runnerid': runnerid})
-    req = urllib2.urlopen(CONTROLLER+"/log",param)
-    response = urllib2.urlopen(req)
-    result = response.read()
+    result = stat(runnerid)
+    # param = urllib.urlencode({'runnerid': runnerid})
+    # req = urllib2.urlopen(CONTROLLER+"/log",param)
+    # response = urllib2.urlopen(req)
+    # result = response.read()
     return result
 
 
-# monitor status
 @app.route("/")
 def monitor():
     if request.method == 'GET':
         params = request.args
     else:
         params = request.form
-    service_stats = {}
-    stats = urllib2.urlopen(CONTROLLER+"/stats")
-    runners_stats={}
-    runners = []
-    services = []
+    # stats = urllib2.urlopen(CONTROLLER+"/stat")
+    stats = stat()  # all docker containers' stats
+    service_stats = {}  # home_services' stats
+    runners_stats = {}  # runners' stats
+    runners = []  # runners list
+    services = []  # home_services list
     try:
         conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
                                db='pop2016', port=3306)
     except Exception, e:
         return None
     cursor = conn.cursor()
-    for stat in stats:
-        dockerid = stat['dockerid']
-        sql = "select sname,url from home_service where dockerid='%s' limit 1" % (dockerid)
+    for pstat in stats:
+        dockerid = pstat['dockerid']
+        sql = "select hsname,url from home_services where dockerid='%s' limit 1" % (dockerid)
         count = cursor.execute(sql)
-        if count ==0:
-            runners_stats[stat['dockerid']] = stat
+        if count == 0:
+            runners_stats[dockerid] = stat
         else:
             result = cursor.fetchone()
             service_name = result[0]
             url = result[1]
             service_stats[service_name] = stat
-            service = dict(url = url,service_name = service_name )
+            if service_name == 'gateone'or service_name == 'registry':
+                service_stat = servicestat(dockerid, service_name)
+            else:
+                service_stat = servicestat(dockerid)
+            service = dict(url=url, service_name=service_name, service_stat=service_stat)
             services.append(dict(service.items()+stat.items()))
     for item in all_runners.items():
         runner = item[1]
