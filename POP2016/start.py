@@ -29,13 +29,7 @@ def get_current_time(timestamp=None):
 # start home services
 def start(service_name, port):
     logging.basicConfig(filename = LOG_FILE, level = logging.ERROR)
-    conn = mysql_con()
-    cursor = conn.cursor()
-    sql = "SELECT dockerid FROM home_service WHERE service_name = '%s'" % service_name
-    count = cursor.execute(sql)
-    if count!=0:
-        sql = "DELETE FROM home_service WHERE service_name = '%s'" % service_name
-        cursor.execute(sql)
+
     type = 'tomcat'
     node = 1
     overload = True
@@ -48,19 +42,45 @@ def start(service_name, port):
     res = startservice(type, path, node, port, memory, overload)
     res = loads(res)
     currtime = get_current_time()
+
     if int(res['code'])!=0:
         logging.error(currtime+" Fail: "+res['msg'])
         print "Fail:"+res['msg']
     else:
-        sql = "INSERT INTO home_service(service_name,dockerid,service_type,start_time,domain,port,node,sshport) VALUES ('%s','%s','%s','%s','%s', %d, %d, %d)" %(service_name, res['dockerid'], type, currtime, res['domain'], int(res['port']), node, int(res['sshport']))
-        try:
-            cursor.execute(sql)
-            conn.commit()
-            print currtime+" "+service_name + " starts success"
-        except Exception,  e:
-            pass
-    cursor.close()
-    conn.close()
+        conn = mysql_con()
+        cursor = conn.cursor()
+        sql = "SELECT id FROM home_service WHERE service_name = '%s'" % service_name
+        count = cursor.execute(sql)
+        if count==0:
+            sql = "insert into home_service(service_name,service_type,create_time,domain,port) VALUES ('%s','%s','%s','%s','%d')" % (service_name,type,currtime,res['domain'],int(res['port']))
+            try:
+                cursor.execute(sql)
+                conn.commit()
+            except Exception, e:
+                pass
+        result = cursor.fetchone()
+        serviceid = result[0]
+        sql = "SELECT dockerid FROM home_service_instance WHERE serviceid='%d'" % serviceid
+        count = cursor.execute(sql)
+        if count == 0:
+            sql = "insert into home_service_instance(dockerid,domain,port,sshport,serviceid,node) VALUES ('%s','%s', %d, %d, %d, %d)" %(res['dockerid'],res['domain'],int(res['port']),int(res['sshport']),serviceid,node)
+            try:
+                cursor.execute(sql)
+                conn.commit()
+                print currtime+" "+service_name + " starts success"
+            except Exception,e:
+                pass
+
+        else:
+            sql = "update home_service_instance SET dockerid='%s', sshport=%d WHERE serviceid=%d " % (res['dockerid'], res['sshport'], serviceid)
+            try:
+                cursor.execute(sql)
+                conn.commit()
+                print currtime+" "+service_name + " starts success"
+            except Exception, e:
+                pass
+        cursor.close()
+        conn.close()
 
 
 def init_all():

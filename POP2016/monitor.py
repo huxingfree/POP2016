@@ -281,49 +281,25 @@ def monitor():
     conn = mysql_con()
     cursor = conn.cursor()
 
-    sql = "select dockerid, service_name, domain, port, sshport FROM home_service"
+    sql = "select id, service_name, service_type,domain, port,create_time FROM home_service"
     count = cursor.execute(sql)
-    currtime = get_current_time()
     if count>0:
         results = cursor.fetchall()
         for result in results:
-            s=dict(name=result[1], domain=result[2], port=result[3], sshport=result[4])
-            res = stat(result[0])
-            res = loads(res)
-            if int(res['code']) != 0:
-                continue
-            else:
-                s = dict(s.items()+res.items())
-                home_service.append(s)
-                continue
+            s=dict(id=result[0],name=result[1], type=result[2] ,domain=result[3], port=result[4], create_date=result[5])
+            home_service.append(s)
 
     sql = "SELECT id, service_name,service_type,owner_name,plugin_address,create_date FROM service"
     count = cursor.execute(sql)
     if count>0:
         results = cursor.fetchall()
         for result in results:
-            service_intance = []
-            sq = "SELECT dockerid,domain, port,sshport FROM service_instance WHERE service_id='%s'" % result[0]
-            ct = cursor.execute(sq)
-            if ct > 0:
-                rts = cursor.fetchall()
-                for rt in rts:
-                    s = dict(domain=rt[1], port=rt[2], sshport=rt[3])
-                    res = stat(rt[0])
-                    res = loads(res)
-                    if int(res['code']) != 0:
-                        continue
-                    else:
-                        s = dict(s.items()+res.items())
-                        service_intance.append(s)
-                        continue
-            ss = dict(serviceid=result[0], name=result[1], type=result[2], owner=result[3], instances=service_intance, address=result[4], create_time=result[5])
-            services.append(ss)
+            s = dict(id=result[0],name=result[1], type=result[2],owner_name=result[3],address=result[4],create_date=result[5])
+            services.append(s)
 
 
     sql = "SELECT dockerid, app_name, app_type, user_name, owner_name, app_instance.domain, port,sshport FROM app_instance, app WHERE app_instance.appid=app.id"
     count = cursor.execute(sql)
-    currtime = get_current_time()
     if count>0:
         results = cursor.fetchall()
         for result in results:
@@ -336,7 +312,54 @@ def monitor():
                 s = dict(s.items()+res.items())
                 runners.append(s)
                 continue
-    return render_template('monitor.html', runners=runners, services=services, home_service=home_service, currtime=currtime)
+    cursor.close()
+    conn.close()
+    return render_template('monitor.html', runners=runners, services=services, home_service=home_service)
+
+
+@app.route("/instance")
+def instance():
+    if request.method == 'GET':
+        params = request.args
+    else:
+        params = request.form
+
+    instance_type = params.get("type")
+    service_id = params.get("id")
+    instances = []
+    conn = mysql_con()
+    cursor = conn.cursor()
+    if instance_type == "openservice":
+        sql = "SELECT dockerid,domain, port,sshport FROM service_instance WHERE service_id=%d" % service_id
+        count = cursor.execute(sql)
+        results = cursor.fetchall()
+        for result in results:
+            ins = dict(domain=result[1],port=result[2],sshport=result[3])
+            res = stat(result[0])
+            res = loads(res)
+            if int(res['code'])!=0:
+                continue
+            else:
+                ins = dict(ins.items()+res.items())
+                instances.append(ins)
+                continue
+    if instance_type =="homeservice":
+        sql = "SELECT dockerid,domain,port,sshport,node FROM home_service_instance WHERE serviceid=%d" % service_id
+        count = cursor.execute(sql)
+        results = cursor.fetchall()
+        for result in results:
+            ins = dict(domain=result[1],port=result[2],sshport=result[3],node=result[4])
+            res = stat(result[0])
+            res = loads(res)
+            if int(res['code'])!=0:
+                continue
+            else:
+                ins = dict(ins.items()+res.items())
+                instances.append(ins)
+                continue
+    return render_template("instance.html",instances=instances)
+
+
 
 """
 @app.route("/monitor")
