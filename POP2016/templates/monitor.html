@@ -75,14 +75,24 @@
                 <tr>
                     <th>name</th>
                     <th>url</th>
-                    <th>create_time</th>
+                    <th>docker id</th>
+                    <th>sshport</th>
+                    <th>cpu</th>
+                    <th>memory</th>
+                    <th>network(in/out)</th>
+                    <th>current time</th>
                     <th>operation</th>
                 </tr>
                 {% for hs in home_service %}
                 <tr>
-                    <td><a href="http://123.57.2.1:9222/instance?type=homeservice&id={{ hs.id }}" target="_blank">{{ hs.name }}</a></td>
+                    <td>{{ hs.name }}</td>
                     <td><a href="http://{{ hs.domain }}:{{ hs.port }}/" target="_blank">http://{{ hs.domain }}:{{ hs.port }}/</a></td>
-                    <td> {{ hs.create_date }} </td>
+                    <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ hs.dockerid }}" target="_blank">{{ hs.dockerid }}</a></td>
+                    <td>{{ hs.sshport }}</td>
+                    <td> {{ hs.cpu }} </td>
+                    <td> {{ hs.memuse }}/{{ hs.memall }}&nbsp;({{hs.mempercent}}) </td>
+                    <td> {{ hs.netin }}/{{ hs.netout }} </td>
+                    <td> {{ currtime }} </td>
                     <td><button class="btn btn-danger delete">delete</button></td>
                 </tr>
                 {% endfor %}

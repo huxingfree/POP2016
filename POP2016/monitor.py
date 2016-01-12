@@ -283,13 +283,21 @@ def monitor():
     conn = mysql_con()
     cursor = conn.cursor()
 
-    sql = "select id, service_name, service_type,domain, port,create_time FROM home_service"
+    sql = "select dockerid, service_name, domain, port, sshport FROM home_service"
     count = cursor.execute(sql)
+    currtime = get_current_time()
     if count>0:
         results = cursor.fetchall()
         for result in results:
-            s=dict(id=result[0],name=result[1], type=result[2] ,domain=result[3], port=result[4], create_date=result[5])
-            home_service.append(s)
+            s=dict(name=result[1], domain=result[2], port=result[3], sshport=result[4])
+            res = stat(result[0])
+            res = loads(res)
+            if int(res['code']) != 0:
+                continue
+            else:
+                s = dict(s.items()+res.items())
+                home_service.append(s)
+                continue
 
     sql = "SELECT id, service_name,service_type,owner_name,plugin_address,create_date FROM service"
     count = cursor.execute(sql)
