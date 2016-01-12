@@ -271,6 +271,8 @@ def dockerstst():
 # home services are displayed default
 @app.route("/monitor")
 def monitor():
+    if session.get('username')!='admin' or session.get('password')=='admin':
+        return redirect(url_for('login'))
     if request.method == 'GET':
         params = request.args
     else:
@@ -360,56 +362,6 @@ def instance():
     return render_template("instance.html",instances=instances)
 
 
-
-"""
-@app.route("/monitor")
-def monitor():
-    if request.method == 'GET':
-        params = request.args
-    else:
-        params = request.form
-
-    # all docker stats
-    stats = stat()
-    stats = loads(stats)
-    currtime = get_current_time()
-    conn = mysql_con()
-    cursor = conn.cursor()
-    home_service = []
-    runners = []
-    services = []
-    service_instance = []
-    for st in stats:
-        dockerid = st['dockerid']
-        # select home services
-        sql = "SELECT service_name, domain, port,sshport FROM home_service WHERE dockerid = '%s' limit 1" % dockerid
-        count = cursor.execute(sql)
-        if count == 1:
-            result = cursor.fetchone()
-            s = dict(name=result[0], domain=result[1], port=result[2], sshport=result[3])
-            s = dict(s.items()+st.items())
-            home_service.append(s)
-            continue
-        # select runners
-        sql = "SELECT app_name, app_type, user_name, owner_name, domain, port,sshport FROM app_instance, app WHERE dockerid='%s' AND app_instance.appid=app.id limit 1" % dockerid
-        count = cursor.execute(sql)
-        if count == 1:
-            result = cursor.fetchone()
-            s = dict(name=result[0], type=result[1], user=result[2], owner=result[3], domain=result[4], port=result[5], sshport=result[6])
-            s = dict(s.items()+st.items())
-            runners.append(s)
-            continue
-        # select services
-        sql = "SELECT service_name, service_type, owner_name, domain, port,sshport FROM service, service_instance WHERE dockerid='%s' AND service.id=service_instance.service_id limit 1" % dockerid
-        count = cursor.execute(sql)
-        if count == 1:
-            result = cursor.fetchone()
-            s = dict(name=result[0], type=result[1], owner=result[2], domain=result[3], port=result[4], sshport=result[5])
-            s = dict(s.items()+st.items())
-            services.append(s)
-            continue
-    return render_template('monitor.html', runners=runners, services=services, home_service=home_service, currtime=currtime)
-"""
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 if __name__ == "__main__":
