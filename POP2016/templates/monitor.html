@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<!-- Favicons -->
+<link rel="icon" href="../static/favicon.ico">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Status of all runners</title>
@@ -40,79 +42,152 @@
     </script>
 </head>
 <body>
+<div align="right">
+  <a href="http://123.57.2.1:9222/logout" id="logout"><i class="fa fa-power-off"></i>退出</a>
+</div>
 <div class="page-header">
     <h2><span><button id="refresh" class="btn btn-primary">Refresh</button></span> Monitoring page for pop2016</h2>
 </div>
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h4>Runners' Status</h4>
-    </div>
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>url</th>
-            <th>type-owner-user-appname</th>
-            <th>cpu</th>
-            <th>memory</th>
-            <th>network(in/out)</th>
-            <th>time</th>
-            <th>operation</th>
-        </tr>
-        {% for runner in runners%}
-        <tr id="{{ runner.pname }}">
-            <td><a href="http://{{runner.domain}}:{{runner.port}}/" target="_blank">http://{{runner.domain}}:{{runner.port}}/</a></td>
-            <td>{{ runner.pname }}</td>
-            <td>{{ runner.cpu }}</td>
-            <td>{{ runner.memuse }}/{{ runner.memall }}&nbsp;({{runner.mempercent}})</td>
-            <td>{{ runner.netin }}/{{ runner.netout }}</td>
-            <td>{{ runner.time }}</td>
-            <td><button class="btn btn-danger delete">delete</button></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <div class="panel-footer"><h5>{{ length }} runners in total.</h5></div>
-</div>
+<ul id="myTab" class="nav nav-tabs">
+   <li class="active">
+      <a href="#home" data-toggle="tab">
+         Home Services
+      </a>
+   </li>
+   <li><a href="#service" data-toggle="tab">Services</a></li>
+   <li><a href="#runners" data-toggle="tab">Runners</a></li>
+</ul>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h4>Services' Status</h4>
+<div id="myTabContent" class="tab-content">
+   <div class="tab-pane fade in active" id="home">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>Home Service</h4>
+            </div>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>name</th>
+                    <th>url</th>
+                    <th>docker id</th>
+                    <th>sshport</th>
+                    <th>cpu</th>
+                    <th>memory</th>
+                    <th>network(in/out)</th>
+                    <th>current time</th>
+                    <th>operation</th>
+                </tr>
+                {% for hs in home_service %}
+                <tr>
+                    <td>{{ hs.name }}</td>
+                    <td><a href="http://{{ hs.domain }}:{{ hs.port }}/" target="_blank">http://{{ hs.domain }}:{{ hs.port }}/</a></td>
+                    <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ hs.dockerid }}" target="_blank">{{ hs.dockerid }}</a></td>
+                    <td>{{ hs.sshport }}</td>
+                    <td> {{ hs.cpu }} </td>
+                    <td> {{ hs.memuse }}/{{ hs.memall }}&nbsp;({{hs.mempercent}}) </td>
+                    <td> {{ hs.netin }}/{{ hs.netout }} </td>
+                    <td> {{ currtime }} </td>
+                    <td><button class="btn btn-danger delete">delete</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>id</th>
-            <th>docker id</th>
-            <th>path</th>
-            <th>status</th>
-        </tr>
-        {% for service in services%}
-        <tr>
-            <td>{{ service.id }}</td>
-            <td>{{ service.dockerid }}</td>
-            <th><a href="{{ service.path }}" target="_blank">{{ service.path }}</a></td>
-            <td>{{ service.status }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h4>Homepage's Status</h4>
+
+     <div class="tab-pane fade" id="service">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>Services' Status</h4>
+                <button type="button" class="btn btn-danger delete">delete</button>&nbsp;<button class="btn btn-primary create_instance">create service</button>
+            </div>
+
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th></th>
+                    <th>name</th>
+                    <th>address</th>
+                    <th>type-owner-name</th>
+                    <th>create time</th>
+                    <th>operation</th>
+                </tr>
+                {% for service in services %}
+                <tr>
+                    <td><button type="button" class="btn btn-success unfold" data-toggle="collapse" data-target="#{{ service.serviceid }}">unfold</button></td>
+                    <td>{{ service.name }}</td>
+                    <td><a href="http://{{ service.address }}/" target="_blank">http://{{ service.address }}/</a></td>
+                    <td> {{ service.type }}-{{ service.owner }}-{{ service.name }} </td>
+                    <td> {{ service.create_time }} </td>
+                    <td><button type="button" class="btn btn-danger delete">delete</button>&nbsp;<button class="btn btn-primary create_instance">create instance</button></td>
+                </tr>
+                 {% endfor %}
+            </table>
+
+            {% for service in services %}
+            <div id="{{ service.serviceid }}" class="collapse">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>docker id</th>
+                        <th>url</th>
+                        <th>ssh port</th>
+                        <th>cpu</th>
+                        <th>memory</th>
+                        <th>network(in/out)</th>
+                        <th>current time</th>
+                        <th>operation</th>
+
+                    </tr>
+                    {% for instance in service.instances %}
+                    <tr>
+                        <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ instance.dockerid }}" target="_blank">{{ instance.dockerid }}</a></td>
+                        <td><a href="http://{{ instance.domain }}:{{ instance.port }}/" target="_blank">http://{{ instance.domain }}:{{ instance.port }}/</a></td>
+                        <td>{{ instance.sshport }}</td>
+                        <td> {{ instance.cpu }} </td>
+                        <td> {{ instance.memuse }}/{{ instance.memall }}&nbsp;({{instance.mempercent}}) </td>
+                        <td> {{ instance.netin }}/{{ instance.netout }} </td>
+                        <td> {{ currtime }} </td>
+                        <td><button class="btn btn-danger delete">delete</button></td>
+                    </tr>
+                   {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    <table class="table table-striped table-hover">
-        <tr>
-            <th>id</th>
-            <th>docker id</th>
-            <th>path</th>
-            <th>status</th>
-        </tr>
-        {% if homepage.status %}
-        <tr>
-            <td>{{ homepage.id }}</td>
-            <td>{{ homepage.dockerid }}</td>
-            <th><a href="{{ homepage.path }}" target="_blank">{{ homepage.path }}</a></td>
-            <td>{{ homepage.status }}</td>
-        </tr>
-        {% endif %}
-    </table>
+
+    <div class="tab-pane fade" id="runners">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>Runners' Status</h4>
+            </div>
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>name</th>
+                    <th>url</th>
+                    <th>docker id</th>
+                    <th>ssh port</th>
+                    <th>type-owner-user-appname</th>
+                    <th>cpu</th>
+                    <th>memory</th>
+                    <th>network(in/out)</th>
+                    <th>time</th>
+                    <th>operation</th>
+                </tr>
+                {% for runner in runners%}
+                <tr id="runner.name ">
+                    <td>{{ runner.name }}</td>
+                    <td><a href="http://{{ runner.domain }}:{{ runner.port }}/" target="_blank">http://{{ runner.domain }}:{{ runner.port }}/</a></td>
+                    <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ runner.dockerid }}" target="_blank">{{ runner.dockerid }}</a></td>
+                    <td>{{ runner.sshport }}</td>
+                    <td> {{ runner.type }}-{{ runner.owner }}-{{ runner.user }}-{{ runner.name }} </td>
+                    <td> {{ runner.cpu }} </td>
+                    <td>{{ runner.memuse }}/{{ runner.memall }}&nbsp;({{runner.mempercent}}) </td>
+                    <td>{{ runner.netin }}/{{ runner.netout }} </td>
+                    <td> {{currtime}}</td>
+                    <td><button class="btn btn-danger delete">delete</button></td>
+                </tr>
+               {% endfor %}
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Message" aria-hidden="true">

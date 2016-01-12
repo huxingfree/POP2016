@@ -1,4 +1,5 @@
 from json import loads, dumps
+import string
 from threading import Timer
 from time import time
 import MySQLdb
@@ -10,7 +11,8 @@ LOG_PORT = 70000
 VALID_TYPES = ['php', 'python', 'javaweb'] # valid runner types
 TIME_INTERVAL = 60
 MANAGER = '-H tcp://0.0.0.0:50000'
-all_runners = {}
+#all_runners = {}
+
 # get user from token (according to database)
 
 
@@ -18,8 +20,9 @@ def getuser(token):
     if token is None:
         return None
     try:
-        conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
-                               db='pop2016', port=3306)
+       conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
+                              db='pop2016', port=3306)
+
     except Exception, e:
         return None
     cursor = conn.cursor()
@@ -85,6 +88,13 @@ def get_runnerid(pname):
     return result[0]
 
 
-# filter the app log
-def log_filter(text):
-    return text
+# filter the runner stat
+def stat_filter(runner_state):
+    mempercent = runner_state['mempercent']
+    len = len(mempercent)
+    mempercent = string.atof(mempercent[0:len])
+    if mempercent>90:
+        return "High Memory Occupancy "
+    else:
+        return None
+
