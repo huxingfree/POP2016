@@ -51,6 +51,8 @@ def start(service_name, port):
         cursor = conn.cursor()
         sql = "SELECT id FROM home_service WHERE service_name = '%s'" % service_name
         count = cursor.execute(sql)
+        result = cursor.fetchone()
+        serviceid = result[0]
         if count==0:
             sql = "insert into home_service(service_name,service_type,create_time,domain,port) VALUES ('%s','%s','%s','%s','%d')" % (service_name,type,currtime,res['domain'],int(res['port']))
             try:
@@ -58,8 +60,7 @@ def start(service_name, port):
                 conn.commit()
             except Exception, e:
                 pass
-        result = cursor.fetchone()
-        serviceid = result[0]
+
         sql = "SELECT dockerid FROM home_service_instance WHERE serviceid='%d'" % serviceid
         count = cursor.execute(sql)
         if count == 0:
