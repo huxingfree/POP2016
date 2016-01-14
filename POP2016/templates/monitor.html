@@ -5,10 +5,9 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Status of all runners</title>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="../static/lib/jquery/jquery.treetable.js"></script>
-    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="../static/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <link href="../static/lib/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         div.panel, div.page-header {
             width: 85%;
@@ -41,10 +40,6 @@
                    "json");
         });
     });
-    </script>
-
-    <script type="text/javascript">
-    $("#service_table").treetable();
     </script>
 
 </head>
@@ -80,7 +75,6 @@
                     <th>cpu</th>
                     <th>memory</th>
                     <th>network(in/out)</th>
-                    <th>current time</th>
                     <th>operation</th>
                 </tr>
                 {% for hs in home_service %}
@@ -92,7 +86,6 @@
                     <td> {{ hs.cpu }} </td>
                     <td> {{ hs.memuse }}/{{ hs.memall }}&nbsp;({{hs.mempercent}}) </td>
                     <td> {{ hs.netin }}/{{ hs.netout }} </td>
-                    <td> {{ currtime }} </td>
                     <td><button class="btn btn-danger delete">delete</button></td>
                 </tr>
                 {% endfor %}
@@ -123,7 +116,6 @@
                     <td> {{ service.create_date }} </td>
                     <td><button type="button" class="btn btn-danger delete">Delete</button>&nbsp;<button class="btn btn-primary create_instance">Create Instance</button>&nbsp;<button class="btn btn-primary upload">Upload</button>&nbsp;<button class="btn btn-primary deploy">Deploy</button></td>
                 </tr>
-
                  {% endfor %}
             </table>
         </div>

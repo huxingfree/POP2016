@@ -1,7 +1,6 @@
 from flask import *
 from container_manager import *
 from json import loads, dumps
-import string
 import MySQLdb
 from time import localtime, time, strftime
 from threading import Timer
@@ -82,25 +81,7 @@ def app_log():
     ptype = params.get('type', default='invalid')
     result = log(dockerid, ptype)
     return result
-"""
-    token = params.get('token', default=None)
-    owner = getuser(token)
-    user = params.get('user', default=None)
-    appname = params.get('appname', default=None)
-    ptype = params.get('type', default='invalid')
 
-    if ptype not in VALID_TYPES:
-        return reply(2, "Invalid running type: %s" % (ptype))
-    if user is None or owner is None:
-        return reply(1, "Unknown user")
-    if appname is None:
-        return reply(1, "Lack param: appname")
-    if not checkvalid(owner, user, appname, ptype):
-        return reply(1, "You don't have permission to this app!")
-
-    pname = "%s...%s...%s...%s" % (ptype, owner, user, appname)
-  #  runnerid = get_runnerid(pname)
-  """
 
     # param = urllib.urlencode({'runnerid': runnerid,'type':ptype})
     # req = urllib2.urlopen(CONTROLLER+"/log", param)
@@ -119,24 +100,7 @@ def runner_stat():
     dockerid = params.get('dockerid',default=None)
     result = stat(dockerid)
     return result
-    """
-    token = params.get('token', default=None)
-    owner = getuser(token)
-    user = params.get('user', default=None)
-    appname = params.get('appname', default=None)
-    ptype = params.get('type', default='invalid')
 
-    if ptype not in VALID_TYPES:
-        return reply(2, "Invalid running type: %s" % (ptype))
-    if user is None or owner is None:
-        return reply(1, "Unknown user")
-    if appname is None:
-        return reply(1, "Lack param: appname")
-    if not checkvalid(owner, user, appname, ptype):
-        return reply(1, "You don't have permission to this runner!")
-    pname = "%s...%s...%s...%s" % (ptype, owner, user, appname)
-   # runnerid = get_runnerid(pname)
-   """
 
     # param = urllib.urlencode({'runnerid': runnerid})
     # req = urllib2.urlopen(CONTROLLER+"/log",param)
@@ -249,7 +213,7 @@ def get_info(dockerid):
         netouts.append(netout)
     cursor.close()
     conn.close()
-    infor = dict(cpus = cpus, mems = mems, netins = netins, netouts = netouts)
+    infor = dict(cpus=cpus, mems=mems, netins=netins, netouts=netouts)
     return infor
 
 
@@ -271,7 +235,7 @@ def dockerstst():
 # home services are displayed default
 @app.route("/monitor")
 def monitor():
-    if session.get('username')!='admin' or session.get('password')=='admin':
+    if session.get('username') != 'admin' or session.get('password') != 'admin':
         return redirect(url_for('login'))
     if request.method == 'GET':
         params = request.args
@@ -280,48 +244,44 @@ def monitor():
     home_service = []
     runners = []
     services = []
+
+    stats = stat()  # get all dockers stats
+    stats = loads(stats)
     conn = mysql_con()
     cursor = conn.cursor()
 
-    sql = "select dockerid, service_name, domain, port, sshport FROM home_service"
-    count = cursor.execute(sql)
-    currtime = get_current_time()
-    if count>0:
-        results = cursor.fetchall()
-        for result in results:
-            s=dict(name=result[1], domain=result[2], port=result[3], sshport=result[4])
-            res = stat(result[0])
-            res = loads(res)
-            if int(res['code']) != 0:
-                continue
-            else:
-                s = dict(s.items()+res.items())
-                home_service.append(s)
-                continue
-
     sql = "SELECT id, service_name,service_type,owner_name,plugin_address,create_date FROM service"
     count = cursor.execute(sql)
-    if count>0:
+    if count > 0:
         results = cursor.fetchall()
         for result in results:
-            s = dict(id=result[0],name=result[1], type=result[2],owner_name=result[3],address=result[4],create_date=result[5])
+            s = dict(id=result[0], name=result[1], type=result[2], owner_name=result[3], address=result[4], create_date=result[5])
             services.append(s)
 
+    for st in stats:
+        dockerid = st['dockerid']
 
-    sql = "SELECT dockerid, app_name, app_type, user_name, owner_name, app_instance.domain, port,sshport FROM app_instance, app WHERE app_instance.appid=app.id"
-    count = cursor.execute(sql)
-    if count>0:
-        results = cursor.fetchall()
-        for result in results:
-            s = dict(name=result[1], type=result[2], user=result[3], owner=result[4], domain=result[5], port=result[6], sshport=result[7])
-            res = stat(result[0])
-            res = loads(res)
-            if int(res['code']) != 0:
-                continue
-            else:
-                s = dict(s.items()+res.items())
-                runners.append(s)
-                continue
+        # select home service
+
+        sql = "SELECT service_name, domain, port,sshport FROM home_service WHERE dockerid = '%s' limit 1" % dockerid
+        count = cursor.execute(sql)
+        if count == 1:
+            result = cursor.fetchone()
+            s = dict(name=result[0], domain=result[1], port=result[2], sshport=result[3])
+            s = dict(s.items()+st.items())
+            home_service.append(s)
+            continue
+
+        # select runners
+        sql = "SELECT app_name, app_type, user_name, owner_name, domain, port,sshport FROM app_instance, app WHERE dockerid='%s' AND app_instance.appid=app.id limit 1" % dockerid
+        count = cursor.execute(sql)
+        if count == 1:
+            result = cursor.fetchone()
+            s = dict(name=result[0], type=result[1], user=result[2], owner=result[3], domain=result[4], port=result[5], sshport=result[6])
+            s = dict(s.items()+st.items())
+            runners.append(s)
+            continue
+
     cursor.close()
     conn.close()
     return render_template('monitor.html', runners=runners, services=services, home_service=home_service)
@@ -339,35 +299,23 @@ def instance():
     instances = []
     conn = mysql_con()
     cursor = conn.cursor()
+
+    stats = stat()
+    stats = loads(stats)
     if instance_type == "openservice":
         sql = "SELECT dockerid,domain, port,sshport FROM service_instance WHERE service_id=%d" % service_id
         count = cursor.execute(sql)
         results = cursor.fetchall()
-        for result in results:
-            ins = dict(domain=result[1],port=result[2],sshport=result[3])
-            res = stat(result[0])
-            res = loads(res)
-            if int(res['code'])!=0:
-                continue
-            else:
-                ins = dict(ins.items()+res.items())
-                instances.append(ins)
-                continue
-    if instance_type =="homeservice":
-        sql = "SELECT dockerid,domain,port,sshport,node FROM home_service_instance WHERE serviceid=%d" % service_id
-        count = cursor.execute(sql)
-        results = cursor.fetchall()
-        for result in results:
-            ins = dict(domain=result[1],port=result[2],sshport=result[3],node=result[4])
-            res = stat(result[0])
-            res = loads(res)
-            if int(res['code'])!=0:
-                continue
-            else:
-                ins = dict(ins.items()+res.items())
-                instances.append(ins)
-                continue
-    return render_template("instance.html",instances=instances)
+        if count > 0:
+            for result in results:
+                for st in stats:
+                    if result[0] == st['dockerid']:
+                        ins = dict(domain=result[1], port=result[2], sshport=result[3])
+                        ins = dict(ins.items()+st.items())
+                        instances.append(ins)
+    cursor.close()
+    conn.close()
+    return render_template("instance.html", instances=instances)
 
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'

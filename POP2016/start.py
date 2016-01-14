@@ -4,7 +4,8 @@ from container_manager import startservice
 import MySQLdb
 from time import localtime, time, strftime
 import logging
-__author__ = 'user'
+
+__author__ = 'Hu Xing'
 
 LOG_FILE = "./start.log"
 
@@ -12,8 +13,8 @@ LOG_FILE = "./start.log"
 # connect to mysql
 def mysql_con():
     try:
-       conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
-                              db='pop2016', port=3306)
+        conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
+                               db='pop2016', port=3306)
     except Exception, e:
         return None
     return conn
@@ -28,19 +29,20 @@ def get_current_time(timestamp=None):
 
 # start home services
 def start(service_name, port):
-    logging.basicConfig(filename = LOG_FILE, level = logging.ERROR)
+    logging.basicConfig(filename=LOG_FILE, level=logging.ERROR)
     conn = mysql_con()
     cursor = conn.cursor()
     sql = "SELECT dockerid FROM home_service WHERE service_name = '%s'" % service_name
     count = cursor.execute(sql)
-    if count!=0:
+    if count != 0:
         sql = "DELETE FROM home_service WHERE service_name = '%s'" % service_name
         cursor.execute(sql)
+
     type = 'tomcat'
     node = 1
     overload = True
     memory = None
-    path = '/'+service_name+'/'
+    path = '/' + service_name + '/'
     if service_name == 'gateone':
         type = 'gateone'
         path = None
@@ -48,16 +50,17 @@ def start(service_name, port):
     res = startservice(type, path, node, port, memory, overload)
     res = loads(res)
     currtime = get_current_time()
-    if int(res['code'])!=0:
-        logging.error(currtime+" Fail: "+res['msg'])
-        print "Fail:"+res['msg']
+    if int(res['code']) != 0:
+        logging.error(currtime + " Fail: " + res['msg'])
+        print "Fail:" + res['msg']
     else:
-        sql = "INSERT INTO home_service(service_name,dockerid,service_type,create_time,domain,port,node,sshport) VALUES ('%s','%s','%s','%s','%s', %d, %d, %d)" %(service_name, res['dockerid'], type, currtime, res['domain'], int(res['port']), node, int(res['sshport']))
+        sql = "INSERT INTO home_service(service_name,dockerid,service_type,create_time,domain,port,node,sshport) VALUES ('%s','%s','%s','%s','%s', %d, %d, %d)" % (
+        service_name, res['dockerid'], type, currtime, res['domain'], int(res['port']), node, int(res['sshport']))
         try:
             cursor.execute(sql)
             conn.commit()
-            print currtime+" "+service_name + " starts success"
-        except Exception,  e:
+            print currtime + " " + service_name + " starts success"
+        except Exception, e:
             pass
     cursor.close()
     conn.close()
@@ -69,6 +72,7 @@ def init_all():
     start('javaweb-compiler', 3000)
     start('gateone', 4000)
     start('pop2016-completion', 9300)
+    start('findbugs', 9400)
 
 
 if len(sys.argv) == 1:
