@@ -54,7 +54,7 @@ def start(service_name, port):
     result = cursor.fetchone()
     sql = "DELETE FROM home_service_instance WHERE port =%d" % int(res['port'])
     count = cursor.execute(sql)
-    sql = "INSERT INTO home_service_instance(dockerid,domain,service_id,port,sshport,node,create_time) VALUES ('%s',%d,'%s',%d,%d,%d,'%s')" % (res['dockerid'],result[0],res['domain'],int(res['port']), node, int(res['sshport']))
+    sql = "INSERT INTO home_service_instance(dockerid,service_id,domain,port,sshport,node,create_time) VALUES ('%s',%d,'%s',%d,%d,%d,'%s')" % (res['dockerid'],result[0],res['domain'],int(res['port']), node, int(res['sshport']), currtime)
     try:
         cursor.execute(sql)
         conn.commit()
