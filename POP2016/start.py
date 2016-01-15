@@ -32,12 +32,8 @@ def start(service_name, port):
     logging.basicConfig(filename=LOG_FILE, level=logging.ERROR)
     conn = mysql_con()
     cursor = conn.cursor()
-    sql = "SELECT dockerid FROM home_service WHERE service_name = '%s'" % service_name
-    count = cursor.execute(sql)
-    if count != 0:
-        sql = "DELETE FROM home_service WHERE service_name = '%s'" % service_name
-        cursor.execute(sql)
 
+    currtime = get_current_time()
     type = 'tomcat'
     node = 1
     overload = True
@@ -46,22 +42,25 @@ def start(service_name, port):
     if service_name == 'gateone':
         type = 'gateone'
         path = None
-
     res = startservice(type, path, node, port, memory, overload)
     res = loads(res)
-    currtime = get_current_time()
+
     if int(res['code']) != 0:
         logging.error(currtime + " Fail: " + res['msg'])
         print "Fail:" + res['msg']
-    else:
-        sql = "INSERT INTO home_service(service_name,dockerid,service_type,create_time,domain,port,node,sshport) VALUES ('%s','%s','%s','%s','%s', %d, %d, %d)" % (
-        service_name, res['dockerid'], type, currtime, res['domain'], int(res['port']), node, int(res['sshport']))
-        try:
-            cursor.execute(sql)
-            conn.commit()
-            print currtime + " " + service_name + " starts success"
-        except Exception, e:
-            pass
+
+    sql = "SELECT service_id FROM home_service WHERE service_name = '%s'" % service_name
+    count = cursor.execute(sql)
+    result = cursor.fetchone()
+    sql = "DELETE FROM home_service_instance WHERE port =%d" % int(res['port'])
+    count = cursor.execute(sql)
+    sql = "INSERT INTO home_service_instance(dockerid,domain,service_id,port,sshport,node,create_time) VALUES ('%s',%d,'%s',%d,%d,%d,'%s')" % (res['dockerid'],result[0],res['domain'],int(res['port']), node, int(res['sshport']))
+    try:
+        cursor.execute(sql)
+        conn.commit()
+        print currtime + " " + service_name + " starts success"
+    except Exception, e:
+        pass
     cursor.close()
     conn.close()
 
