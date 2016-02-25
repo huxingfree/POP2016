@@ -104,12 +104,6 @@ def runner_stat():
     return result
 
 
-    # param = urllib.urlencode({'runnerid': runnerid})
-    # req = urllib2.urlopen(CONTROLLER+"/log",param)
-    # response = urllib2.urlopen(req)
-    # result = response.read()
-
-
 def send_mail(report):
     SENDER = '2269077178@qq.com'
     RECEIVIER = 'huxing0101@pku.edu.cn'
@@ -219,7 +213,7 @@ def get_info(dockerid):
     return infor
 
 
-@app.route('/dockerstat',methods=['GET','POST'])
+@app.route('/dockerstat', methods=['GET', 'POST'])
 def dockerstst():
     if request.method == 'GET':
         params = request.args
@@ -232,6 +226,22 @@ def dockerstst():
     netins = infor['netins']
     netouts = infor['netouts']
     return render_template('dockerstat.html', mems=mems, cpus=cpus, netins=netins, netouts=netouts)
+
+
+@app.route('/userinfo', methods=['GET', 'POST'])
+def userinfo():
+    if request.method == 'GET':
+        param = request.args
+    else:
+        param = request.form
+
+    conn = mysql_con()
+    cursor = conn.cursor()
+
+    sql = "SELECT * FROM user"
+    user_count = conn.execute(sql)
+    results = cursor.fetchall()
+
 
 
 # home services are displayed default
