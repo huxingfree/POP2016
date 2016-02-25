@@ -25,9 +25,27 @@
             window.location.reload();
         });
         $(".delete").click(function() {
-            var pname = $(this).parent().parent().attr('id');
+            var dockerid = $(this).parent().parent().attr('id');
             var btn = $(this);
-            $.post("delete",{pname: pname},
+            $.post("delete_instance",{dockerid: dockerid},
+                    function(data) {
+                        if (data.code==0) {
+                            window.location.reload();
+                        }
+                        else {
+                            $("div.modal-body").text(data.msg);
+                            $("div.modal").modal({keyboard: true});
+                        }
+                    },
+                   "json");
+        });
+        $(".create_instance").click(function() {
+            var url = window.location.href;
+            var args = url.substr(url.indexOf("?"),url.length);
+            var arg = args.split("=");
+            var serviceid = arg[1];
+            var btn = $(this);
+            $.post("create_instance",{serviceid: serviceid},
                     function(data) {
                         if (data.code==0) {
                             window.location.reload();
@@ -53,8 +71,11 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h4>Instance' Status</h4>
-        <button class="btn btn-primary create_instance">Create Instance</button>
+        <h4>{{ service_name }} Instance' Status</h4>
+        <div align="right">
+            <button class="btn btn-primary create_instance">Create Instance</button>
+        </div>
+
     </div>
 
     <table class="table table-striped table-hover" id="instance_table">
@@ -69,7 +90,7 @@
         </tr>
 
         {% for instance in instances %}
-        <tr >
+        <tr id="{{ instance.dockerid }}">
             <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ instance.dockerid }}" target="_blank">{{ instance.dockerid }}</a></td>
             <td><a href="http://{{ instance.domain }}:{{ instance.port }}/" target="_blank">http://{{ instance.domain }}:{{ instance.port }}/</a></td>
             <td>{{ instance.sshport }}</td>

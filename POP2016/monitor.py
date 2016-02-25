@@ -1,3 +1,5 @@
+import urllib
+import urllib2
 from flask import *
 from container_manager import *
 from json import loads, dumps
@@ -8,9 +10,9 @@ import smtplib
 from email.mime.text import MIMEText
 __author__ = 'Hu Xing'
 
-LOG_PORT = 9222
+MONITOR_PORT = 9222
 VALID_TYPES = ['php', 'python', 'javaweb'] # valid runner types
-TIME_INTERVAL = 600
+TIME_INTERVAL = 3600
 
 
 # format current time as a string
@@ -128,7 +130,7 @@ def send_mail(report):
     smtp.quit()
 
 
-# get all docker stats every 1 min
+# get all docker stats every 30 min
 def check_docker_stats():
     global TIME_INTERVAL
     conn = mysql_con()
@@ -182,7 +184,7 @@ def check_docker_stats():
             conn.commit()
         except Exception, e:
             pass
-        if mempercent>80:
+        if mempercent>50 or cpu>50:
             report.append(st)
     cursor.close()
     conn.close()
@@ -250,30 +252,26 @@ def monitor():
     conn = mysql_con()
     cursor = conn.cursor()
 
-    sql = "SELECT id, service_name,service_type,owner_name,plugin_address,create_date FROM service"
+    # home services
+    sql = "SELECT id, service_name, service_type,plugin_address,update_date FROM service WHERE issuper=1"
     count = cursor.execute(sql)
-    if count > 0:
-        results = cursor.fetchall()
-        for result in results:
-            s = dict(id=result[0], name=result[1], type=result[2], owner_name=result[3], address=result[4], create_date=result[5])
-            services.append(s)
+    results = cursor.fetchall()
+    for result in results:
+        s = dict(id=result[0],name=result[1],type=result[2], address=result[3], update_time=result[4])
+        home_service.append(s)
 
+    # open service
+    sql = "SELECT id, service_name,service_type,owner_name,plugin_address,create_date FROM service WHERE issuper=0"
+    count = cursor.execute(sql)
+    results = cursor.fetchall()
+    for result in results:
+        s = dict(id=result[0],name=result[1],type=result[2],owner=result[3],address=result[4],create_date=result[5])
+        services.append(s)
+
+    # runners
     for st in stats:
         dockerid = st['dockerid']
-
-        # select home service
-
-        sql = "SELECT service_name, domain, port,sshport FROM home_service WHERE dockerid = '%s' limit 1" % dockerid
-        count = cursor.execute(sql)
-        if count == 1:
-            result = cursor.fetchone()
-            s = dict(name=result[0], domain=result[1], port=result[2], sshport=result[3])
-            s = dict(s.items()+st.items())
-            home_service.append(s)
-            continue
-
-        # select runners
-        sql = "SELECT app_name, app_type, user_name, owner_name, domain, port,sshport FROM app_instance, app WHERE dockerid='%s' AND app_instance.appid=app.id limit 1" % dockerid
+        sql = "SELECT app_name, app_type, user_name, owner_name, app_instance.domain, port,sshport FROM app_instance, app WHERE dockerid='%s' AND app_instance.appid=app.id limit 1" % dockerid
         count = cursor.execute(sql)
         if count == 1:
             result = cursor.fetchone()
@@ -281,7 +279,6 @@ def monitor():
             s = dict(s.items()+st.items())
             runners.append(s)
             continue
-
     cursor.close()
     conn.close()
     return render_template('monitor.html', runners=runners, services=services, home_service=home_service)
@@ -293,29 +290,93 @@ def instance():
         params = request.args
     else:
         params = request.form
-
-    instance_type = params.get("type")
     service_id = params.get("id")
+    service_id = int(service_id)
     instances = []
     conn = mysql_con()
     cursor = conn.cursor()
 
     stats = stat()
     stats = loads(stats)
-    if instance_type == "openservice":
-        sql = "SELECT dockerid,domain, port,sshport FROM service_instance WHERE service_id=%d" % service_id
-        count = cursor.execute(sql)
-        results = cursor.fetchall()
-        if count > 0:
-            for result in results:
-                for st in stats:
-                    if result[0] == st['dockerid']:
-                        ins = dict(domain=result[1], port=result[2], sshport=result[3])
-                        ins = dict(ins.items()+st.items())
-                        instances.append(ins)
+
+    sql = "SELECT dockerid,domain, port,sshport FROM service_instance WHERE service_id=%d" % service_id
+    count = cursor.execute(sql)
+    results = cursor.fetchall()
+
+    sql = "SELECT service_name FROM service WHERE id=%d" % service_id
+    cursor.execute(sql)
+    service_name = cursor.fetchone()[0]
+    if count > 0:
+        for result in results:
+            for st in stats:
+                if result[0] == st['dockerid']:
+                    ins = dict(domain=result[1], port=result[2], sshport=result[3])
+                    ins = dict(ins.items()+st.items())
+                    instances.append(ins)
+                    break
+
     cursor.close()
     conn.close()
-    return render_template("instance.html", instances=instances)
+    return render_template("instance.html", instances=instances,service_name=service_name)
+
+
+@app.route("/delete_instance",methods=['GET','POST'])
+def delete_instance():
+    if request.method == 'GET':
+        params = request.args
+    else:
+        params = request.form
+    dockerid = params.get('dockerid')
+    param = urllib.urlencode({'dockerid': dockerid})
+    req = urllib2.Request("http://123.57.2.1:9998/delete_instance", param)
+    response = urllib2.urlopen(req)
+    result = response.read()
+    return result
+
+
+@app.route("/create_instance", methods=['GET','POST'])
+def create_instance():
+    if request.method == 'GET':
+        params = request.args
+    else:
+        params = request.form
+    serviceid = params.get('serviceid')
+    conn = mysql_con()
+    cursor = conn.cursor()
+    sql = "SELECT service_name, service_type FROM service WHERE id=%d AND issuper=1" % int(serviceid)
+    count = cursor.execute(sql)
+    result = cursor.fetchone()
+    if result[0] == 'javaweb-compiler':
+        res = startservice(result[1], '/admin/javaweb-compiler/', 1, None, None, False)
+        res=loads(res)
+        if int(res['code']) ==0:
+            sql = "INSERT INTO service_instance(dockerid,service_id,domain,port,sshport) VALUES ('%s',%d,'%s',%d,%d)" % (res['dockerid'],serviceid,res['domain'],int(res['port']),int(res['sshport']))
+            try:
+                cursor.execute(sql)
+                conn.commit()
+            except Exception, e:
+                pass
+            cursor.close()
+            conn.close()
+        return dumps(res)
+    elif result[0] == 'gateone':
+        res = startservice(result[1],None, 1, None, None, False)
+        res=loads(res)
+        if int(res['code']) ==0:
+            sql = "INSERT INTO service_instance(dockerid,service_id,domain,port,sshport) VALUES ('%s',%d,'%s',%d,%d)" % (res['dockerid'],serviceid,res['domain'],int(res['port']),int(res['sshport']))
+            try:
+                cursor.execute(sql)
+                conn.commit()
+            except Exception, e:
+                pass
+            cursor.close()
+            conn.close()
+        return dumps(res)
+    else:
+        param = urllib.urlencode({'serviceid': serviceid})
+        req = urllib2.Request("http://123.57.2.1:9998/create_instance", param)
+        response = urllib2.urlopen(req)
+        return response.read()
 
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
