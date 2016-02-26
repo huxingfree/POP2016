@@ -57,7 +57,7 @@ def login():
         if request.form['username']=="admin" and request.form['password']=="admin":
             session['username']=request.form['username']
             session['password']=request.form['password']
-            return redirect(url_for('monitor'))
+            return redirect(url_for('userinfo'))
         else:
             return render_template("login.html")
     else:
@@ -238,10 +238,24 @@ def userinfo():
     conn = mysql_con()
     cursor = conn.cursor()
 
+    # user statistic
+    users = []
     sql = "SELECT * FROM user"
     user_count = conn.execute(sql)
     results = cursor.fetchall()
+    for result in results:
+        user = dict(id=result[0], username=result[1], email=result[5], last_login=result[3])
+        users.append(user)
 
+    # online statistic
+    onlines = []
+    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by latest order by latest desc"
+    day_count = conn.execute(sql)
+    results = cursor.fetchall()
+    for result in results:
+        online = dict(date=result[0], count=result[1])
+        onlines.append(online)
+    return render_template('userinfo.html', user_count=user_count, users=users, day_count=day_count, onlines=onlines)
 
 
 # home services are displayed default
@@ -393,4 +407,4 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 if __name__ == "__main__":
     Timer(TIME_INTERVAL, check_docker_stats).start()
-    app.run(host="0.0.0.0", port=LOG_PORT, debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=MONITOR_PORT, debug=True, use_reloader=False)
