@@ -36,44 +36,18 @@
     <h2><span><button id="refresh" class="btn btn-primary">Refresh</button></span> Monitoring page for pop2016</h2>
 </div>
 <ul id="myTab" class="nav nav-tabs">
-   <li class="active">
-      <a href="#userinfo" data-toggle="tab">
-         用户信息
-      </a>
-   </li>
-   <li><a href="#onlineinfo" data-toggle="tab">上线情况</a></li>
-   <li><a href="http://123.57.2.1:9222/monitor" data-toggle="tab">系统运行情况</a></li>
+   <li class="active"><a href="#onlineinfo" data-toggle="tab">上线情况</a></li>
+   <li><a href="http://123.57.2.1:9222/monitor" target="_blank">系统运行情况</a></li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
-   <div class="tab-pane fade in active" id="userinfo">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h4>用户信息统计</h4>
-            </div>
-            <table class="table table-striped table-hover">
-                <tr>
-                    <th>用户ID</th>
-                    <th>用户名</th>
-                    <th>邮箱</th>
-                    <th>最近访问时间</th>
-                </tr>
-                {% for user in users %}
-                <tr id="{{ user.id }}">
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }} </td>
-                    <td>{{ user.last_login }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </div>
-
-     <div class="tab-pane fade" id="onlineinfo">
+     <div class="tab-pane fade in active" id="onlineinfo">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h4>用户上线情况</h4>
+                <div align="right">
+                    用户总数：{{ user_count }}
+                </div>
             </div>
 
             <table class="table table-striped table-hover">

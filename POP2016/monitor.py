@@ -8,6 +8,7 @@ from time import localtime, time, strftime
 from threading import Timer
 import smtplib
 from email.mime.text import MIMEText
+
 __author__ = 'Hu Xing'
 
 MONITOR_PORT = 9222
@@ -46,7 +47,7 @@ app = Flask(__name__)
 @app.route("/",methods=['GET','POST'])
 def index():
     if session.get('username')=='admin' and session.get('password')=='admin':
-        return redirect(url_for('monitor'))
+        return redirect(url_for('userinfo'))
     else:
         return render_template("index.html")
 
@@ -230,6 +231,8 @@ def dockerstst():
 
 @app.route('/userinfo', methods=['GET', 'POST'])
 def userinfo():
+    if session.get('username') != 'admin' or session.get('password') != 'admin':
+        return redirect(url_for('login'))
     if request.method == 'GET':
         param = request.args
     else:
@@ -241,20 +244,25 @@ def userinfo():
     # user statistic
     users = []
     sql = "SELECT * FROM user"
-    user_count = conn.execute(sql)
+    user_count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:
+        username=result[1]
+
         user = dict(id=result[0], username=result[1], email=result[5], last_login=result[3])
         users.append(user)
 
     # online statistic
     onlines = []
-    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by latest order by latest desc"
-    day_count = conn.execute(sql)
+    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by date order by date desc"
+    day_count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:
         online = dict(date=result[0], count=result[1])
         onlines.append(online)
+
+    cursor.close()
+    conn.close()
     return render_template('userinfo.html', user_count=user_count, users=users, day_count=day_count, onlines=onlines)
 
 
