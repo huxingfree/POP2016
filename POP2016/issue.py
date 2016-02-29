@@ -88,6 +88,8 @@ def create_issue():
     issue_id = result[0]
     issue = dict(issue_id=issue_id, issue_head=issue_head, issue_body=issue_body, email=email)
     send_mail(issue)
+    cursor.close()
+    conn.close()
     return redirect(url_for('issue_list'))
 
 
@@ -131,7 +133,7 @@ def issue_list():
 
 
 @app.route('/issue', methods=['GET', 'POST'])
-def issue():
+def issue_detail():
     if request.method == 'GET':
         param = request.args
     else:
@@ -143,7 +145,16 @@ def issue():
 
     conn = mysql_con()
     cursor = conn.cursor()
+    sql = "SELECT * FROM issue WHERE id=%d limit 1" % issue_id
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    sql = "SELECT is_super FROM user WHERE id=%d limit 1" % admin
+    cursor.execute(sql)
+    is_super = cursor.fetchone()
+    is_super = is_super[0]
+    issue = None
+    if result[1] == userid or is_super == 1:
+        issue = dict(issue_id=issue_id, create_time=result[2], issue_type=result[3], issue_head=result[4],
+                     issue_body=result[5], email=result[6], is_deal=result[7], solution=result[8], attachment=result[9])
 
-    sql = "SELECT * FROM issue WHERE id=%d AND userid=%d limit 1" % (issue_id, userid)
-
-
+    return render_template('', issue=issue)
