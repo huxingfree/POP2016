@@ -111,7 +111,7 @@ def send_mail(report):
     SUBJECT = 'POP2016 minotor'
     SMTPSERVER = 'smtp.qq.com'
     USERNAME = '2269077178@qq.com'
-    PASSWORD = 'XINfang199311'
+    PASSWORD = ''
     str = '<html><h1>Warning!</h1></html>'+'<table border="1"><tr><th>Docker ID</th><th>CPU</th><th>mempercent</th></tr>'
     for st in report:
         str = str + '<tr><td>'+st['dockerid']+'</td><td>'+st['cpu']+'</td><td>'+st['mempercent']+'</td></tr>'
@@ -125,7 +125,8 @@ def send_mail(report):
     smtp.quit()
 
 
-# get all docker stats every 30 min
+# get all docker stats every 1 hour
+
 def check_docker_stats():
     global TIME_INTERVAL
     conn = mysql_con()

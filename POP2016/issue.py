@@ -42,7 +42,7 @@ def send_mail(report):
     SUBJECT = 'POP2016 工单'
     SMTPSERVER = 'smtp.qq.com'
     USERNAME = '2269077178@qq.com'
-    PASSWORD = 'xinfang199311'
+    PASSWORD = ''
     str = '<html><h1>工单</h1></html>'+'<table border="1"><tr><th>Issue ID</th><th>问题标题</th><th>问题描述</th><th>详细情况</th></tr>'
     for st in report:
         str = str + '<tr><td>'+st['dockerid']+'</td><td>'+st['cpu']+'</td><td>'+st['mempercent']+'</td></tr>'
