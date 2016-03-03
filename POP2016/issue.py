@@ -4,6 +4,7 @@ import smtplib
 from time import time, strftime, localtime
 import MySQLdb
 from flask import Flask, request, session, render_template, url_for
+from flask.json import dumps
 from werkzeug.utils import secure_filename, redirect
 
 __author__ = 'Hu Xing'
@@ -43,10 +44,11 @@ def send_mail(report):
     SMTPSERVER = 'smtp.qq.com'
     USERNAME = '2269077178@qq.com'
     PASSWORD = ''
-    str = '<html><h1>工单</h1></html>'+'<table border="1"><tr><th>Issue ID</th><th>问题标题</th><th>问题描述</th><th>详细情况</th></tr>'
+    str = '<html><h1>工单</h1></html>' + '<table border="1"><tr><th>Issue ID</th><th>问题标题</th><th>问题描述</th><th>详细情况</th></tr>'
     for st in report:
-        str = str + '<tr><td>'+st['dockerid']+'</td><td>'+st['cpu']+'</td><td>'+st['mempercent']+'</td></tr>'
-    str = str+'</table>'
+        str = str + '<tr><td>' + st['dockerid'] + '</td><td>' + st['cpu'] + '</td><td>' + st[
+            'mempercent'] + '</td></tr>'
+    str = str + '</table>'
     msg = MIMEText(str, 'html', 'utf-8')
     msg['Subject'] = SUBJECT
     smtp = smtplib.SMTP()
@@ -71,14 +73,16 @@ def create_issue():
     email = param['email']
     create_time = get_current_time()
     attachment = request.files['attachment']
-    attach_addr = ATTACHMENT_ADDR+userid+'/'
+    attach_addr = ATTACHMENT_ADDR + userid + '/'
     if attachment and allowed_file(attachment.filename):
         filename = secure_filename(attachment.filename)
         attachment.save(os.path.join(app.config['attach_addr'], filename))
-        attach_addr = attach_addr+filename
-        sql = "INSERT INTO issue(userid, create_time, issue_head, issue_body, email, attachment) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s')" % (userid, create_time, issue_head, issue_body, email, attach_addr)
+        attach_addr = attach_addr + filename
+        sql = "INSERT INTO issue(userid, create_time, issue_head, issue_body, email, attachment) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s')" % (
+            userid, create_time, issue_head, issue_body, email, attach_addr)
     else:
-        sql = "INSERT INTO issue(userid, create_time, issue_head, issue_body, email) VALUES (%d, '%s', '%s', '%s', '%s', '%s')" % (userid, create_time, issue_head, issue_body, email)
+        sql = "INSERT INTO issue(userid, create_time, issue_head, issue_body, email) VALUES (%d, '%s', '%s', '%s', '%s', '%s')" % (
+            userid, create_time, issue_head, issue_body, email)
     cursor.execute(sql)
     conn.commit()
 
@@ -93,7 +97,7 @@ def create_issue():
     return redirect(url_for('issue_list'))
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/list', methods=['GET', 'POST'])
 def issue_list():
     if request.method == 'GET':
         param = request.args
@@ -101,35 +105,70 @@ def issue_list():
         param = request.form
 
     issues = []
-    solved_issues = []
-    unsolved_issues = []
-    token = param.get('token', default=None)
-    conn = mysql_con()
-    cursor = conn.cursor()
-    sql = "SELECT id FROM user WHERE token='%s' limit 1" % token
-    cursor.execute(sql)
-    result = cursor.fetchone()
-    userid = result[0]
+    userid = param['uid']
     session['userid'] = userid
 
+    conn = mysql_con()
+    cursor = conn.cursor()
+
     sql = "SELECT * FROM issue WHERE userid = %d" % userid
-    cursor.execute(sql)
+    count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:
         is_deal = result[7]
         if is_deal == 0:
             state = "待解决"
-            issue = dict(id=result[0], create_time=result[2], issue_type=result[3], issue_head=result[4], state=state)
-            unsolved_issues.append(issue)
         else:
             state = "已解决"
-            issue = dict(id=result[0], create_time=result[2], issue_type=result[3], issue_head=result[4], state=state)
-            solved_issues.append(issue)
+
+        issue = dict(id=result[0], create_time=result[2], issue_type=result[3], issue_head=result[4], state=state)
         issues.append(issue)
 
     cursor.close()
     conn.close()
-    return render_template('issue.html', issues=issues, unsolved_issues=unsolved_issues, solved_issues=solved_issues)
+    return render_template('issue.html', issues=issues, count=count)
+
+
+@app.route('/unsolved')
+def unsolved_list():
+    if request.method == 'GET':
+        param = request.args
+    else:
+        param = request.form
+    conn = mysql_con()
+    cursor = conn.cursor()
+    issues = []
+    userid = session.get('userid')
+    sql = "SELECT * FROM issue WHERE userid = %d AND state = %d " % (userid, 0)
+    count = cursor.execute(sql)
+    results = cursor.fetchall()
+    for result in results:
+        issue = dict(id=result[0], create_time=result[2], issue_type=result[3], issue_head=result[4], state="未解决")
+        issues.append(issue)
+    cursor.close()
+    conn.close()
+    return render_template('issue.html', issues=issues, count=count)
+
+
+@app.route('/solved')
+def solved_list():
+    if request.method == 'GET':
+        param = request.args
+    else:
+        param = request.form
+    conn = mysql_con()
+    cursor = conn.cursor()
+    issues = []
+    userid = session.get('userid')
+    sql = "SELECT * FROM issue WHERE userid = %d AND state = %d " % (userid, 0)
+    count = cursor.execute(sql)
+    results = cursor.fetchall()
+    for result in results:
+        issue = dict(id=result[0], create_time=result[2], issue_type=result[3], issue_head=result[4], state="未解决")
+        issues.append(issue)
+    cursor.close()
+    conn.close()
+    return render_template('issue.html', issues=issues, count=count)
 
 
 @app.route('/issue', methods=['GET', 'POST'])
@@ -153,8 +192,99 @@ def issue_detail():
     is_super = cursor.fetchone()
     is_super = is_super[0]
     issue = None
-    if result[1] == userid or is_super == 1:
-        issue = dict(issue_id=issue_id, create_time=result[2], issue_type=result[3], issue_head=result[4],
-                     issue_body=result[5], email=result[6], is_deal=result[7], solution=result[8], attachment=result[9])
 
-    return render_template('', issue=issue)
+    if result[1] == userid or is_super == 1:
+
+        sql = "SELECT * FROM communication WHERE issue_id = '%d' ORDER BY time DESC " % issue_id
+        cursor.execute(sql)
+        rsts = cursor.fetchall()
+        communicates = []
+        for rst in rsts:
+            sql = "SELECT is_super FROM user WHERE id = '%d'" % rst[2]
+            cursor.execute(sql)
+            is_super = cursor.fetchone()
+            is_super = is_super[0]
+            if is_super == 1:
+                sender = "Admin"
+            else:
+                sender = "自己"
+            communicate = dict(communicate_id=rst[0], sender=sender, time=rst[3], content=rst[4])
+            communicates.append(communicate)
+        if result[7]==0:
+            state = "待解决"
+        else:
+            state = "已解决"
+        issue = dict(issue_id=issue_id, create_time=result[2], issue_type=result[3], issue_head=result[4],
+                     issue_body=result[5], email=result[6], is_deal=result[7], solution=result[8], state=state,
+                     attachment=result[9], communicates=communicates)
+        cursor.close()
+        conn.close()
+        return render_template('', issue=issue)
+    else:
+        cursor.close()
+        conn.close()
+        return dumps({'code': 1, 'msg': 'Permission denied'})
+
+
+@app.route('/delete', methods=['GET', 'POST'])
+def delete_issue():
+    if request.method == 'GET':
+        param = request.args
+    else:
+        param = request.form
+
+    issue_id = param['issueid']
+    admin = param['uid']
+    userid = session.get('userid')
+
+    conn = mysql_con()
+    cursor = conn.cursor()
+    sql = "SELECT * FROM issue WHERE id=%d limit 1" % issue_id
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    sql = "SELECT is_super FROM user WHERE id=%d limit 1" % admin
+    cursor.execute(sql)
+    is_super = cursor.fetchone()
+    is_super = is_super[0]
+
+    if result[1] == userid or is_super == 1:
+        sql = "delete FROM issue WHERE issue_id = %d" % issue_id
+        cursor.execute(sql)
+        conn.commit()
+        res = {'code': 0, 'msg': 'success'}
+    else:
+        res = {'code': 0, 'msg': 'Permission denied'}
+
+    cursor.close()
+    conn.close()
+    return dumps(res)
+
+
+def communicate_record():
+    pass
+
+
+@app.route('/addcommunication', methods=['GET', 'POST'])
+def add_communication():
+    if request.method == 'GET':
+        param = request.args
+    else:
+        param = request.form
+
+    issue_id = param['issueid']
+    content = param['content']
+    userid = session.get('userid')
+    create_time = get_current_time()
+    if userid is None:
+        return redirect("http://www.poprogramming.com/login")
+    conn = mysql_con()
+    cursor = conn.cursor()
+
+    sql = "INSERT INTO communication (issue_id, sender_id, time, content) VALUES (%d, %d, '%s', '%s')" % (
+        issue_id, userid, create_time, content)
+    cursor.execute(sql)
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+    return redirect(url_for('issue_detail'))
