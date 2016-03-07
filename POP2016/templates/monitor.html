@@ -58,7 +58,7 @@
 </head>
 <body>
 <div align="right">
-  <a href="http://123.57.2.1:9222/logout" id="logout"><i class="fa fa-power-off"></i>退出</a>
+  <a href="/logout" id="logout"><i class="fa fa-power-off"></i>退出</a>
 </div>
 <div class="page-header">
     <h2><span><button id="refresh" class="btn btn-primary">Refresh</button></span> Monitoring page for pop2016</h2>
@@ -92,7 +92,7 @@
                 </tr>
                 {% for hs in home_service %}
                 <tr id="{{ hs.id }}">
-                    <td><a href="http://123.57.2.1:9222/instance?id={{ hs.id }}" target="_blank">{{ hs.name }}</a></td>
+                    <td><a href="/instance?id={{ hs.id }}" target="_blank">{{ hs.name }}</a></td>
                     <td>{{ hs.type }}</td>
                     <td><a href="http://{{ hs.address }}" target="_blank">{{ hs.address }}</a> </td>
                     <td>{{ hs.update_time }}</td>
@@ -119,7 +119,7 @@
                 </tr>
                 {% for service in services %}
                 <tr id="{{ service.id }}">
-                   <td><a href="http://123.57.2.1:9222/instance?id={{ service.id }}" target="_blank">{{ service.name }}</a></td>
+                   <td><a href="/instance?id={{ service.id }}" target="_blank">{{ service.name }}</a></td>
                     <td><a href="http://{{ service.address }}" target="_blank">{{ service.address }}</a></td>
                     <td> {{ service.type }}-{{ service.owner }}-{{ service.name }} </td>
                     <td> {{ service.create_date }} </td>
@@ -151,7 +151,7 @@
                 <tr id="runner.name ">
                     <td>{{ runner.name }}</td>
                     <td><a href="http://{{ runner.domain }}:{{ runner.port }}/" target="_blank">http://{{ runner.domain }}:{{ runner.port }}/</a></td>
-                    <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ runner.dockerid }}" target="_blank">{{ runner.dockerid }}</a></td>
+                    <td><a href="/dockerstat?dockerid={{ runner.dockerid }}" target="_blank">{{ runner.dockerid }}</a></td>
                     <td>{{ runner.sshport }}</td>
                     <td> {{ runner.type }}-{{ runner.owner }}-{{ runner.user }}-{{ runner.name }} </td>
                     <td> {{ runner.cpu }} </td>

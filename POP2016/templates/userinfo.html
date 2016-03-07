@@ -37,7 +37,9 @@
 </div>
 <ul id="myTab" class="nav nav-tabs">
    <li class="active"><a href="#onlineinfo" data-toggle="tab">上线情况</a></li>
+    <li><a href="#alluser" data-toggle="tab">注册用户</a></li>
    <li><a href="http://123.57.2.1:9222/monitor" target="_blank">系统运行情况</a></li>
+    <li><a href="http://123.57.2.1:4500/list?uid=111" target="_blank">工单情况</a></li>
 </ul>
 
 <div id="myTabContent" class="tab-content">
@@ -59,6 +61,34 @@
                 <tr id="{{ online.date }}">
                    <td>{{ online.date }}</td>
                     <td>{{ online.count }}</td>
+                </tr>
+                 {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="alluser">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4>注册用户</h4>
+            </div>
+            <div align="right">
+                    用户总数：{{ user_count }}
+            </div>
+            <table class="table table-striped table-hover" id="service_table">
+                <tr>
+                    <th>用户编号</th>
+                    <th>用户名</th>
+                    <th>email</th>
+                    <th>最近访问时间</th>
+                    <th>注册时间</th>
+                </tr>
+                {% for user in users %}
+                <tr id="{{ user.id }}">
+                   <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td> {{ user.email }}</td>
+                    <td> {{ user.last_login }}</td>
+                    <td> {{ user.register_time }}</td>
                 </tr>
                  {% endfor %}
             </table>

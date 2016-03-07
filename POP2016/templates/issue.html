@@ -36,16 +36,16 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						id="username" data-toggle="dropdown">${user.username }<span
+						id="username" data-toggle="dropdown">{{ username }}<span
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">使用说明</a></li>
 							<li><a href="#">常见问题</a></li>
 							<li><a href="#">意见反馈</a></li>
 							<li class="divider"></li>
-							<li><a href="/account">账号设置</a></li>
+							<li><a href="http://123.57.2.1:80/account">账号设置</a></li>
 						</ul></li>
-					<li><a href="/logout" id="logout"><i
+					<li><a href="http://123.57.2.1:80/logout" id="logout"><i
 							class="fa fa-power-off"></i></a></li>
 				</ul>
 			</div>
@@ -69,13 +69,13 @@
 
 	        {% for issue in issues %}
 	        <tr id="{{ issue.issueid }}">
-	            <td><a href="http://123.57.2.1:9222/dockerstat?dockerid={{ instance.dockerid }}" target="_blank">{{ issue.issueid }}</a></td>
+	            <td><a href="/detail?issueid={{ issue.id }}">{{ issue.id }}</a></td>
 	            <td>{{ issue.issue_type }}</td>
 	            <td>{{ issue.issue_head }}</td>
 	            <td>{{ issue.state }}</td>
 	            <td>{{ issue.create_time }}</td>
 	            <td>
-	            	<a href="#">查看</a>|<a href="#">确认</a>|<a href="#">删除</a>
+	            	<a href="/detail?issueid={{ issue.id }}">查看</a>|<a href="/check?issueid={{ issue.id }}">确认</a>|<a href="/delete?issueid={{ issue.id }}">删除</a>
 	            </td>
 	        </tr>
 	         {% endfor %}
@@ -84,9 +84,9 @@
 	<div class="col-md-2">
 		<div class="selector">
 			<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-				<li class="active"><a href="#">所有工单</a></li>
-				<li><a href="#">待解决工单</a></li>
-				<li><a href="#">已解决工单</a></li>
+				<li class="active"><a href="/list">所有工单</a></li>
+				<li><a href="/unsolved">待解决工单</a></li>
+				<li><a href="/solved">已解决工单</a></li>
 			</ul>
 		</div>
 	</div>
@@ -103,48 +103,51 @@
 				</div>
 
 				
-				<form class="form-horizontal create-form">
+				<form action="/create" class="form-horizontal create-form" enctype="multipart/form-data" method="post">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="app-name" class="col-sm-2 control-label">问题类型</label>
+							<label for="type" class="col-sm-2 control-label">问题类型*</label>
 							<!-- 问题类型-->
-							<select class="form-control">
-								<option value="">请选择问题类型</option>
-								<option value="coding">开发</option>
-								<option value="compile">编译</option>
-								<option value="debug">调试</option>
-								<option value="run">运行</option>
-								<option value="others">其他</option>
+							<div class="col-sm-10">
+								<select class="form-control" id="type" name="type"  required autofocus>
+								<option value="开发" selected>开发</option>
+								<option value="编译">编译</option>
+								<option value="调试">调试</option>
+								<option value="运行">运行</option>
+								<option value="其他">其他</option>
 							</select>
+							</div>
+
 						</div>
-						
+
 						<div class="form-group">
-							<label for="issue-head" class="col-sm-2 control-label">问题标题</label>
+							<label for="head" class="col-sm-2 control-label">问题标题*</label>
 							<!-- 问题标题-->
 							<div class="col-sm-10">
-								<input type="text" id="issue-head" name="issue-head"
-									class="col-sm-10 form-control" placeholder="标题长度限制为30字" >
+								<input type="text" id="head" name="head"
+									class="col-sm-10 form-control" placeholder="标题长度限制为30字" required autofocus>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="issue-body" class="col-sm-2 control-label">问题描述*</label>
+							<label for="body" class="col-sm-2 control-label">问题描述*</label>
 							<!-- 问题描述-->
 							<div class="col-sm-10">
-								<textarea type="text" id="issue-body" name="issue-body"
-									class="col-sm-10 form-control"  required autofocus>
+								<textarea type="text" id="body" name="body"
+									class="col-sm-10 form-control" placeholder="请详细描述问题" required autofocus>
+								</textarea>
 							</div>
 						</div>
-						
+
 						 <div class="form-group">
-                    		<label for="file" class="col-sm-2 control-label">图片附件</label>
+                    		<label for="atta" class="col-sm-2 control-label">图片附件</label>
                     		<div class="col-sm-10">
-                        		<input type="file" id="file" name="file" class="col-sm-10 form-control">
+                        		<input type="file" id="atta" name="atta" class="col-sm-10 form-control">
                     		</div>
                 		</div>
 
                 		<div class="form-group">
-							<label for="email" class="col-sm-2 control-label">联系邮箱</label>
+							<label for="email" class="col-sm-2 control-label">联系邮箱*</label>
 							<!-- 联系邮箱-->
 							<div class="col-sm-10">
 								<input type="text" id="email" name="email"
@@ -162,11 +165,9 @@
 		</div>
 	</div>
 
-	
-
 	<script src="/static/lib/jquery/jquery-1.9.1.min.js"></script>
 	<script src="/static/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 	<script src="/static/lib/jquery/jquery.cookie.js"></script>
-	<script src="/static/custom/js/console.js"></script>
+	<script src="/static/custom/js/issue.js"></script>
 </body>
 </html>

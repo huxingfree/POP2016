@@ -1,3 +1,4 @@
+# coding:utf-8
 import urllib
 import urllib2
 from flask import *
@@ -8,7 +9,9 @@ from time import localtime, time, strftime
 from threading import Timer
 import smtplib
 from email.mime.text import MIMEText
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 __author__ = 'Hu Xing'
 
 MONITOR_PORT = 9222
@@ -27,7 +30,7 @@ def get_current_time(timestamp=None):
 def mysql_con():
     try:
        conn = MySQLdb.connect(host='rdsj7nhfyy0syt1fw980.mysql.rds.aliyuncs.com', user='useradmin', passwd='useradmin',
-                              db='pop2016', port=3306)
+                              db='pop2016', port=3306, charset="utf8")
     except Exception, e:
         return None
     return conn
@@ -248,14 +251,12 @@ def userinfo():
     user_count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:
-        username=result[1]
-
-        user = dict(id=result[0], username=result[1], email=result[5], last_login=result[3])
+        user = dict(id=result[0], username=result[1], email=result[5], last_login=result[3], register_time=result[13])
         users.append(user)
 
     # online statistic
     onlines = []
-    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by date order by date desc"
+    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by date order by date desc limit 30"
     day_count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:

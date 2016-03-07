@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82a4af28-5691-429f-a9a5-e567239429f4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/issuedetail.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/custom/js/issue.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/user.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/issue.html" afterPath="$PROJECT_DIR$/templates/issue.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/issue.py" afterPath="$PROJECT_DIR$/issue.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/issuedetail.html" afterPath="$PROJECT_DIR$/templates/issuedetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/monitor.html" afterPath="$PROJECT_DIR$/templates/monitor.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/monitor.py" afterPath="$PROJECT_DIR$/monitor.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/userinfo.html" afterPath="$PROJECT_DIR$/templates/userinfo.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POP2016.iws" />
@@ -27,26 +32,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="monitor.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="monitor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/monitor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="271" column="3" selection-start-line="271" selection-start-column="3" selection-end-line="271" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.33079433">
+              <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <marker date="1456814388816" expanded="true" signature="5148:5271" placeholder="insert into ..." />
-                <marker date="1456814388816" expanded="true" signature="5794:5880" placeholder="select time,..." />
-                <marker date="1456814388816" expanded="true" signature="7312:7325" placeholder="SELECT * FRO..." />
-                <marker date="1456814388816" expanded="true" signature="7312:7330" placeholder="SELECT * FRO..user..." />
-                <marker date="1456814388816" expanded="true" signature="7628:7739" placeholder="select date_..." />
-                <marker date="1456814388816" expanded="true" signature="8589:8682" placeholder="SELECT id, s..service..." />
-                <marker date="1456814388816" expanded="true" signature="8940:9043" placeholder="SELECT id, s..service..." />
-                <marker date="1456814388816" expanded="true" signature="9365:9529" placeholder="SELECT app_n..app_instance..." />
-                <marker date="1456814388816" expanded="true" signature="10352:10428" placeholder="SELECT docke..." />
-                <marker date="1456814388816" expanded="true" signature="10521:10563" placeholder="SELECT servi..service..." />
-                <marker date="1456814388816" expanded="true" signature="11818:11890" placeholder="SELECT servi..service..." />
-                <marker date="1456814388816" expanded="true" signature="12175:12272" placeholder="INSERT INTO ..." />
-                <marker date="1456814388816" expanded="true" signature="12743:12840" placeholder="INSERT INTO ..." />
+                <element signature="e#15#28#0" expanded="true" />
+                <marker date="1457352627592" expanded="true" signature="5232:5355" placeholder="insert into ..." />
+                <marker date="1457352627592" expanded="true" signature="5878:5964" placeholder="select time,..." />
+                <marker date="1457352627592" expanded="true" signature="7396:7409" placeholder="SELECT * FRO..." />
+                <marker date="1457352627592" expanded="true" signature="7396:7414" placeholder="SELECT * FRO..user..." />
+                <marker date="1457352627592" expanded="true" signature="7710:7821" placeholder="select date_..." />
+                <marker date="1457352627592" expanded="true" signature="7710:7830" placeholder="select date_..." />
+                <marker date="1457352627592" expanded="true" signature="8680:8773" placeholder="SELECT id, s..service..." />
+                <marker date="1457352627592" expanded="true" signature="9031:9134" placeholder="SELECT id, s..service..." />
+                <marker date="1457352627592" expanded="true" signature="9456:9620" placeholder="SELECT app_n..app_instance..." />
+                <marker date="1457352627592" expanded="true" signature="10443:10519" placeholder="SELECT docke..." />
+                <marker date="1457352627592" expanded="true" signature="10612:10654" placeholder="SELECT servi..service..." />
+                <marker date="1457352627592" expanded="true" signature="11909:11981" placeholder="SELECT servi..service..." />
+                <marker date="1457352627592" expanded="true" signature="12266:12363" placeholder="INSERT INTO ..." />
+                <marker date="1457352627592" expanded="true" signature="12834:12931" placeholder="INSERT INTO ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="issuedetail.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/issuedetail.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.75">
+              <caret line="38" column="68" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
+              <folding>
+                <element signature="n#style#0;n#textarea#0;n#div#0;n#form#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="issue.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/custom/js/issue.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="userinfo.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/userinfo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-31.214285">
+              <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="container_manager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/container_manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="instance.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/instance.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="45" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="monitor.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/monitor.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-46.75">
+              <caret line="165" column="6" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
+              <folding>
+                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -56,54 +127,44 @@
         <entry file="file://$PROJECT_DIR$/issue.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="218" column="55" selection-start-line="218" selection-start-column="43" selection-end-line="218" selection-end-column="55" />
+              <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
               <folding>
-                <element signature="e#0#36#0" expanded="true" />
-                <marker date="1456972909796" expanded="true" signature="2499:2628" placeholder="INSERT INTO ..." />
-                <marker date="1456972909796" expanded="true" signature="2736:2847" placeholder="INSERT INTO ..." />
-                <marker date="1456972909796" expanded="true" signature="2971:3006" placeholder="SELECT id FR..issue..." />
-                <marker date="1456972909796" expanded="true" signature="2971:3007" placeholder="SELECT id FR..issue..." />
-                <marker date="1456972909796" expanded="true" signature="2971:3032" placeholder="SELECT id FR..issue..." />
-                <marker date="1456972909796" expanded="true" signature="2971:3039" placeholder="SELECT id FR..issue..." />
-                <marker date="1456972909796" expanded="true" signature="3642:3677" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="4410:4445" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="4410:4459" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="4410:4460" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="5074:5124" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="5806:5845" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="5924:5969" placeholder="SELECT is_su..user..." />
-                <marker date="1456972909796" expanded="true" signature="6142:6155" placeholder="SELECT * FRO..." />
-                <marker date="1456972909796" expanded="true" signature="6142:6191" placeholder="SELECT * FRO..communication..." />
-                <marker date="1456972909796" expanded="true" signature="6142:6210" placeholder="SELECT * FRO..communication..." />
-                <marker date="1456972909796" expanded="true" signature="6355:6396" placeholder="SELECT is_su..user..." />
-                <marker date="1456972909796" expanded="true" signature="7681:7720" placeholder="SELECT * FRO..issue..." />
-                <marker date="1456972909796" expanded="true" signature="7799:7844" placeholder="SELECT is_su..user..." />
-                <marker date="1456972909796" expanded="true" signature="7999:8016" placeholder="delete FROM ..." />
-                <marker date="1456972909796" expanded="true" signature="7999:8022" placeholder="delete FROM ..." />
-                <marker date="1456972909796" expanded="true" signature="7999:8034" placeholder="delete FROM ..." />
-                <marker date="1456972909796" expanded="true" signature="8770:8839" placeholder="INSERT INTO ..." />
-                <marker date="1456972909796" expanded="true" signature="8770:8860" placeholder="INSERT INTO ..." />
+                <element signature="e#15#51#0" expanded="true" />
+                <marker date="1457357854690" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
+                <marker date="1457357854690" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
+                <marker date="1457357854690" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="4095:4234" placeholder="INSERT INTO ..." />
+                <marker date="1457357854690" expanded="true" signature="4363:4485" placeholder="INSERT INTO ..." />
+                <marker date="1457357854690" expanded="true" signature="4637:4705" placeholder="SELECT id FR..issue..." />
+                <marker date="1457357854690" expanded="true" signature="5396:5427" placeholder="SELECT usern..user..." />
+                <marker date="1457357854690" expanded="true" signature="5396:5431" placeholder="SELECT usern..user..." />
+                <marker date="1457357854690" expanded="true" signature="5768:5805" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="5931:5994" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="6039:6084" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="6993:7030" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="6993:7032" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="7156:7208" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="7156:7236" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="7285:7348" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="8116:8153" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="8279:8359" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="8408:8471" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="9316:9351" placeholder="SELECT usern..user..." />
+                <marker date="1457357854690" expanded="true" signature="9710:9739" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457357854690" expanded="true" signature="9832:9900" placeholder="SELECT * FRO..communication..." />
+                <marker date="1457357854690" expanded="true" signature="10045:10086" placeholder="SELECT is_su..user..." />
+                <marker date="1457357854690" expanded="true" signature="11278:11297" placeholder="delete FROM ..." />
+                <marker date="1457357854690" expanded="true" signature="11278:11309" placeholder="delete FROM ..." />
+                <marker date="1457357854690" expanded="true" signature="11278:11320" placeholder="delete FROM ..." />
+                <marker date="1457357854690" expanded="true" signature="11278:11321" placeholder="delete FROM ..." />
+                <marker date="1457357854690" expanded="true" signature="11401:11440" placeholder="select attac..issue..." />
+                <marker date="1457357854690" expanded="true" signature="11401:11441" placeholder="select attac..issue..." />
+                <marker date="1457357854690" expanded="true" signature="11657:11686" placeholder="delete FROM ..." />
+                <marker date="1457357854690" expanded="true" signature="12290:12306" placeholder="UPDATE issue..." />
+                <marker date="1457357854690" expanded="true" signature="12290:12329" placeholder="UPDATE issue..." />
+                <marker date="1457357854690" expanded="true" signature="13001:13091" placeholder="INSERT INTO ..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="issuedetail.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/issuedetail.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6825029">
-              <caret line="90" column="76" selection-start-line="90" selection-start-column="76" selection-end-line="90" selection-end-column="76" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="userinfo.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/userinfo.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="39" column="79" selection-start-line="39" selection-start-column="79" selection-end-line="39" selection-end-column="79" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -111,68 +172,11 @@
       <file leaf-file-name="issue.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/issue.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.571428">
-              <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controller.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controller.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.892858">
+              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
               <folding>
-                <element signature="e#45#104#0" expanded="true" />
-                <marker date="1452842022594" expanded="true" signature="1305:1487" placeholder="insert into ..." />
-                <marker date="1452842022594" expanded="true" signature="2162:2271" placeholder="select app_n..app..." />
-                <marker date="1452842022594" expanded="true" signature="2926:2976" placeholder="select usern..user..." />
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="instance_manager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/instance_manager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#22#0" expanded="true" />
-                <marker date="1453295581942" expanded="true" signature="1044:1150" placeholder="SELECT domai..." />
-                <marker date="1453295581942" expanded="true" signature="1694:1766" placeholder="SELECT plugi..service..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="instance.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/instance.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="monitor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/monitor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="185" column="78" selection-start-line="185" selection-start-column="78" selection-end-line="185" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -184,6 +188,7 @@
       <list>
         <option value="Python Script" />
         <option value="Html5" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -206,13 +211,15 @@
         <option value="$PROJECT_DIR$/start.py" />
         <option value="$PROJECT_DIR$/instance_manager.py" />
         <option value="$PROJECT_DIR$/templates/instance.html" />
-        <option value="$PROJECT_DIR$/templates/monitor.html" />
         <option value="$PROJECT_DIR$/ticket.py" />
+        <option value="$PROJECT_DIR$/static/custom/js/detail.js" />
+        <option value="$PROJECT_DIR$/static/custom/js/issue.js" />
+        <option value="$PROJECT_DIR$/templates/monitor.html" />
         <option value="$PROJECT_DIR$/monitor.py" />
-        <option value="$PROJECT_DIR$/templates/issue.html" />
         <option value="$PROJECT_DIR$/templates/userinfo.html" />
-        <option value="$PROJECT_DIR$/issue.py" />
         <option value="$PROJECT_DIR$/templates/issuedetail.html" />
+        <option value="$PROJECT_DIR$/templates/issue.html" />
+        <option value="$PROJECT_DIR$/issue.py" />
       </list>
     </option>
   </component>
@@ -297,6 +304,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POP2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POP2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POP2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POP2016" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="custom" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -592,14 +639,20 @@
       <option name="project" value="LOCAL" />
       <updated>1456814709984</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="2016.3.3">
+      <created>1456986891171</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1456986891171</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15260416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15260416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.098101266" sideWeight="0.50416666" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -627,7 +680,7 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.098101266" sideWeight="0.50416666" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.098101266" sideWeight="0.50416666" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -662,43 +715,16 @@
     <MESSAGE value="2016.2.25 syn" />
     <MESSAGE value="2016.2.26 userinfo" />
     <MESSAGE value="2016.3.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="2016.3.1" />
+    <MESSAGE value="2016.3.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="2016.3.3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/container_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="394" column="14" selection-start-line="394" selection-start-column="14" selection-end-line="394" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dockerstat.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/monitor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -951,30 +977,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/container_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/instance_manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-            <marker date="1453295581942" expanded="true" signature="1044:1150" placeholder="SELECT domai..." />
-            <marker date="1453295581942" expanded="true" signature="1694:1766" placeholder="SELECT plugi..service..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -982,109 +988,167 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding>
-            <element signature="e#45#104#0" expanded="true" />
-            <marker date="1452842022594" expanded="true" signature="1305:1487" placeholder="insert into ..." />
-            <marker date="1452842022594" expanded="true" signature="2162:2271" placeholder="select app_n..app..." />
-            <marker date="1452842022594" expanded="true" signature="2926:2976" placeholder="select usern..user..." />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/instance_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="22" selection-start-line="63" selection-start-column="22" selection-end-line="63" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.085963">
+          <caret line="2371" column="0" selection-start-line="2371" selection-start-column="0" selection-end-line="2371" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/lib/jquery/jquery-1.9.1.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34343433">
+          <caret line="0" column="29058" selection-start-line="0" selection-start-column="29058" selection-end-line="0" selection-end-column="29058" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/instance.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+          <caret line="43" column="12" selection-start-line="43" selection-start-column="12" selection-end-line="45" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/lib/jquery/jquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.022850925">
+          <caret line="367" column="12" selection-start-line="367" selection-start-column="12" selection-end-line="367" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/custom/js/issue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/container_manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/userinfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-31.214285">
+          <caret line="46" column="36" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/monitor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="185" column="78" selection-start-line="185" selection-start-column="78" selection-end-line="185" selection-end-column="78" />
-          <folding />
+        <state vertical-scroll-proportion="-46.75">
+          <caret line="165" column="6" selection-start-line="165" selection-start-column="6" selection-end-line="165" selection-end-column="6" />
+          <folding>
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/monitor.py">
+    <entry file="file://$PROJECT_DIR$/templates/issuedetail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="271" column="3" selection-start-line="271" selection-start-column="3" selection-end-line="271" selection-end-column="3" />
+        <state vertical-scroll-proportion="-4.75">
+          <caret line="38" column="68" selection-start-line="38" selection-start-column="68" selection-end-line="38" selection-end-column="68" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1456814388816" expanded="true" signature="5148:5271" placeholder="insert into ..." />
-            <marker date="1456814388816" expanded="true" signature="5794:5880" placeholder="select time,..." />
-            <marker date="1456814388816" expanded="true" signature="7312:7325" placeholder="SELECT * FRO..." />
-            <marker date="1456814388816" expanded="true" signature="7312:7330" placeholder="SELECT * FRO..user..." />
-            <marker date="1456814388816" expanded="true" signature="7628:7739" placeholder="select date_..." />
-            <marker date="1456814388816" expanded="true" signature="8589:8682" placeholder="SELECT id, s..service..." />
-            <marker date="1456814388816" expanded="true" signature="8940:9043" placeholder="SELECT id, s..service..." />
-            <marker date="1456814388816" expanded="true" signature="9365:9529" placeholder="SELECT app_n..app_instance..." />
-            <marker date="1456814388816" expanded="true" signature="10352:10428" placeholder="SELECT docke..." />
-            <marker date="1456814388816" expanded="true" signature="10521:10563" placeholder="SELECT servi..service..." />
-            <marker date="1456814388816" expanded="true" signature="11818:11890" placeholder="SELECT servi..service..." />
-            <marker date="1456814388816" expanded="true" signature="12175:12272" placeholder="INSERT INTO ..." />
-            <marker date="1456814388816" expanded="true" signature="12743:12840" placeholder="INSERT INTO ..." />
+            <element signature="n#style#0;n#textarea#0;n#div#0;n#form#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/issue.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.571428">
-          <caret line="82" column="10" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
-          <folding />
+        <state vertical-scroll-proportion="-12.892858">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/issue.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="218" column="55" selection-start-line="218" selection-start-column="43" selection-end-line="218" selection-end-column="55" />
+          <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <marker date="1456972909796" expanded="true" signature="2499:2628" placeholder="INSERT INTO ..." />
-            <marker date="1456972909796" expanded="true" signature="2736:2847" placeholder="INSERT INTO ..." />
-            <marker date="1456972909796" expanded="true" signature="2971:3006" placeholder="SELECT id FR..issue..." />
-            <marker date="1456972909796" expanded="true" signature="2971:3007" placeholder="SELECT id FR..issue..." />
-            <marker date="1456972909796" expanded="true" signature="2971:3032" placeholder="SELECT id FR..issue..." />
-            <marker date="1456972909796" expanded="true" signature="2971:3039" placeholder="SELECT id FR..issue..." />
-            <marker date="1456972909796" expanded="true" signature="3642:3677" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="4410:4445" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="4410:4459" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="4410:4460" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="5074:5124" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="5806:5845" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="5924:5969" placeholder="SELECT is_su..user..." />
-            <marker date="1456972909796" expanded="true" signature="6142:6155" placeholder="SELECT * FRO..." />
-            <marker date="1456972909796" expanded="true" signature="6142:6191" placeholder="SELECT * FRO..communication..." />
-            <marker date="1456972909796" expanded="true" signature="6142:6210" placeholder="SELECT * FRO..communication..." />
-            <marker date="1456972909796" expanded="true" signature="6355:6396" placeholder="SELECT is_su..user..." />
-            <marker date="1456972909796" expanded="true" signature="7681:7720" placeholder="SELECT * FRO..issue..." />
-            <marker date="1456972909796" expanded="true" signature="7799:7844" placeholder="SELECT is_su..user..." />
-            <marker date="1456972909796" expanded="true" signature="7999:8016" placeholder="delete FROM ..." />
-            <marker date="1456972909796" expanded="true" signature="7999:8022" placeholder="delete FROM ..." />
-            <marker date="1456972909796" expanded="true" signature="7999:8034" placeholder="delete FROM ..." />
-            <marker date="1456972909796" expanded="true" signature="8770:8839" placeholder="INSERT INTO ..." />
-            <marker date="1456972909796" expanded="true" signature="8770:8860" placeholder="INSERT INTO ..." />
+            <element signature="e#15#51#0" expanded="true" />
+            <marker date="1457357854690" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
+            <marker date="1457357854690" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
+            <marker date="1457357854690" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="4095:4234" placeholder="INSERT INTO ..." />
+            <marker date="1457357854690" expanded="true" signature="4363:4485" placeholder="INSERT INTO ..." />
+            <marker date="1457357854690" expanded="true" signature="4637:4705" placeholder="SELECT id FR..issue..." />
+            <marker date="1457357854690" expanded="true" signature="5396:5427" placeholder="SELECT usern..user..." />
+            <marker date="1457357854690" expanded="true" signature="5396:5431" placeholder="SELECT usern..user..." />
+            <marker date="1457357854690" expanded="true" signature="5768:5805" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="5931:5994" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="6039:6084" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="6993:7030" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="6993:7032" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="7156:7208" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="7156:7236" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="7285:7348" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="8116:8153" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="8279:8359" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="8408:8471" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="9316:9351" placeholder="SELECT usern..user..." />
+            <marker date="1457357854690" expanded="true" signature="9710:9739" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457357854690" expanded="true" signature="9832:9900" placeholder="SELECT * FRO..communication..." />
+            <marker date="1457357854690" expanded="true" signature="10045:10086" placeholder="SELECT is_su..user..." />
+            <marker date="1457357854690" expanded="true" signature="11278:11297" placeholder="delete FROM ..." />
+            <marker date="1457357854690" expanded="true" signature="11278:11309" placeholder="delete FROM ..." />
+            <marker date="1457357854690" expanded="true" signature="11278:11320" placeholder="delete FROM ..." />
+            <marker date="1457357854690" expanded="true" signature="11278:11321" placeholder="delete FROM ..." />
+            <marker date="1457357854690" expanded="true" signature="11401:11440" placeholder="select attac..issue..." />
+            <marker date="1457357854690" expanded="true" signature="11401:11441" placeholder="select attac..issue..." />
+            <marker date="1457357854690" expanded="true" signature="11657:11686" placeholder="delete FROM ..." />
+            <marker date="1457357854690" expanded="true" signature="12290:12306" placeholder="UPDATE issue..." />
+            <marker date="1457357854690" expanded="true" signature="12290:12329" placeholder="UPDATE issue..." />
+            <marker date="1457357854690" expanded="true" signature="13001:13091" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/userinfo.html">
+    <entry file="file://$PROJECT_DIR$/monitor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="79" selection-start-line="39" selection-start-column="79" selection-end-line="39" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/issuedetail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6825029">
-          <caret line="90" column="76" selection-start-line="90" selection-start-column="76" selection-end-line="90" selection-end-column="76" />
-          <folding />
+        <state vertical-scroll-proportion="0.33079433">
+          <caret line="112" column="23" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+            <marker date="1457352627592" expanded="true" signature="5232:5355" placeholder="insert into ..." />
+            <marker date="1457352627592" expanded="true" signature="5878:5964" placeholder="select time,..." />
+            <marker date="1457352627592" expanded="true" signature="7396:7409" placeholder="SELECT * FRO..." />
+            <marker date="1457352627592" expanded="true" signature="7396:7414" placeholder="SELECT * FRO..user..." />
+            <marker date="1457352627592" expanded="true" signature="7710:7821" placeholder="select date_..." />
+            <marker date="1457352627592" expanded="true" signature="7710:7830" placeholder="select date_..." />
+            <marker date="1457352627592" expanded="true" signature="8680:8773" placeholder="SELECT id, s..service..." />
+            <marker date="1457352627592" expanded="true" signature="9031:9134" placeholder="SELECT id, s..service..." />
+            <marker date="1457352627592" expanded="true" signature="9456:9620" placeholder="SELECT app_n..app_instance..." />
+            <marker date="1457352627592" expanded="true" signature="10443:10519" placeholder="SELECT docke..." />
+            <marker date="1457352627592" expanded="true" signature="10612:10654" placeholder="SELECT servi..service..." />
+            <marker date="1457352627592" expanded="true" signature="11909:11981" placeholder="SELECT servi..service..." />
+            <marker date="1457352627592" expanded="true" signature="12266:12363" placeholder="INSERT INTO ..." />
+            <marker date="1457352627592" expanded="true" signature="12834:12931" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
