@@ -76,12 +76,12 @@ def check_valid(userid, issueid):
 
 
 def send_mail(issue):
-    SENDER = '2269077178@qq.com'
+    SENDER = '胡星<huxing0101@pku.edu.cn>'
     RECEIVIER = 'mass@sei.pku.edu.cn'
     SUBJECT = 'POP2016 工单'
-    SMTPSERVER = 'smtp.qq.com'
-    USERNAME = '2269077178@qq.com'
-    PASSWORD = ''
+    SMTPSERVER = 'smtp.pku.edu.cn'
+    USERNAME = 'huxing0101@pku.edu.cn'
+    PASSWORD = 'xinfang1993'
     content = '<html><h1>工单</h1></html>' + '<table border="1"><tr><th>Issue ID</th><th>问题类型</th><th>问题标题</th><th>详细情况</th></tr>'
     content += '<tr><td>' + str(issue['issue_id']) + '</td><td>' + issue['issue_type'] + '</td><td>' + issue[
         'issue_head'] + "</td><td><a href='http://123.57.2.1:4500/detail?uid=111&issueid=" + str(issue[
@@ -104,50 +104,73 @@ def send_mail(issue):
 def create_issue():
     if request.method == 'GET':
         param = request.args
+
     else:
         param = request.form
-
-    userid = session.get('userid')
-    global ATTACHMENT_ADDR
-    if userid is None:
-        res = dumps({'code': 1, 'msg': "Permission denied"})
-        return res
-    else:
+    userid = param.get('uid', None)
+    if userid:
+        userid = int(userid)
         conn = mysql_con()
         cursor = conn.cursor()
-        issue_type = param.get('type', None)
-        issue_head = param.get('head', None)
-        issue_body = param.get('body', None)
-        email = param.get('email', None)
-        create_time = get_current_time()
-        attachment = request.files.get('atta', None)
-
-        if attachment and allowed_file(attachment.filename):
-
-            attach_addr = ATTACHMENT_ADDR + str(userid)
-            if not os.path.exists(attach_addr):
-                os.makedirs(attach_addr)
-            app.config['UPLOAD_FOLDER'] = attach_addr
-            filename = secure_filename(attachment.filename)
-            attachment.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            img_path = "/static/attachment/"+str(userid)+"/"+filename
-            sql = "INSERT INTO issue(userid, create_time,issue_type, issue_head, issue_body, email, attachment) VALUES (%d, '%s','%s' ,'%s', '%s', '%s', '%s')" % (
-                userid, create_time, issue_type, issue_head, issue_body, email, img_path)
-        else:
-            sql = "INSERT INTO issue(userid, create_time,issue_type ,issue_head, issue_body, email) VALUES (%d, '%s', '%s', '%s', '%s', '%s')" % (
-                userid, create_time, issue_type, issue_head, issue_body, email)
+        sql = "SELECT username FROM user WHERE id=%d" % userid
         cursor.execute(sql)
-        conn.commit()
-
-        sql = "SELECT id FROM issue WHERE userid = %d AND create_time = '%s'limit 1" % (userid, create_time)
-        cursor.execute(sql)
-        result = cursor.fetchone()
-        issue_id = result[0]
-        issue = dict(issue_id=issue_id, issue_head=issue_head, issue_body=issue_body, email=email, issue_type=issue_type)
-        send_mail(issue)
+        username = cursor.fetchone()[0]
         cursor.close()
         conn.close()
-        return redirect(url_for("issue_list"))
+        session['userid'] = userid
+        session['username'] = username
+    else:
+        userid = session.get('userid')
+    global ATTACHMENT_ADDR
+
+    if userid:
+        if request.method == 'GET':
+            return render_template('createissue.html', username=session.get('username'))
+        else:
+            conn = mysql_con()
+            cursor = conn.cursor()
+            issue_type = param.get('type', None)
+            issue_head = param.get('head', None)
+            issue_body = param.get('body', None)
+            email = param.get('email', None)
+            create_time = get_current_time()
+            attachment = request.files.get('atta', None)
+
+            if not email:
+                sql = "SELECT email FROM user WHERE id=%d" % userid
+                count = cursor.execute(sql)
+                if count > 0:
+                    email = cursor.fetchone()[0]
+
+            if attachment and allowed_file(attachment.filename):
+
+                attach_addr = ATTACHMENT_ADDR + str(userid)
+                if not os.path.exists(attach_addr):
+                    os.makedirs(attach_addr)
+                app.config['UPLOAD_FOLDER'] = attach_addr
+                filename = secure_filename(attachment.filename)
+                attachment.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                img_path = "/static/attachment/"+str(userid)+"/"+filename
+                sql = "INSERT INTO issue(userid, create_time,issue_type, issue_head, issue_body, email, attachment) VALUES (%d, '%s','%s' ,'%s', '%s', '%s', '%s')" % (
+                    userid, create_time, issue_type, issue_head, issue_body, email, img_path)
+            else:
+                sql = "INSERT INTO issue(userid, create_time,issue_type ,issue_head, issue_body, email) VALUES (%d, '%s', '%s', '%s', '%s', '%s')" % (
+                    userid, create_time, issue_type, issue_head, issue_body, email)
+            cursor.execute(sql)
+            conn.commit()
+
+            sql = "SELECT id FROM issue WHERE userid = %d AND create_time = '%s'limit 1" % (userid, create_time)
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            issue_id = result[0]
+            issue = dict(issue_id=issue_id, issue_head=issue_head, issue_body=issue_body, email=email, issue_type=issue_type)
+            send_mail(issue)
+            cursor.close()
+            conn.close()
+            return redirect(url_for("issue_list"))
+    else:
+        res = dumps({'code': 1, 'msg': "Permission denied"})
+        return res
 
 
 @app.route('/list', methods=['GET', 'POST'])
@@ -269,7 +292,7 @@ def issue_detail():
     else:
         param = request.form
 
-    issue_id = int(param.get('issueid'))
+    issue_id = int(param.get('issueid', None))
     userid = param.get('uid', None)
     if userid:
         userid = int(userid)
@@ -378,7 +401,7 @@ def add_communication():
         param = request.form
 
     issue_id = int(param.get('issueid'))
-    content = param.get('content')
+    content = param.get('content', None)
     userid = session.get('userid')
     create_time = get_current_time()
     if check_valid(userid, issue_id):

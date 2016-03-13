@@ -20,19 +20,28 @@ $(function(){
             }
         }, "json");
     });*/
+
     $(".add-communication").on('submit', function(e){
             e.preventDefault();
             var content = $("textarea[name='content']").val().trim();
             var url = window.location.href;
             var args = url.substr(url.indexOf("?"),url.length);
-            var arg = args.split("=");
-            var issue_id = arg[1];
+            var arg = args.split("&");
+            var issue_id;
+            if(arg.length>1)
+            {
+                issue_id = arg[1]
+            }
+            else{
+                issue_id = arg[0]
+            }
+            issue_id = issue_id.split("=")[1];
             $.post('/addcommunication', {issueid:issue_id, content:content}, function(data){
                 if(data.code == 1){
                     alert(data.msg);
                 }
                 else{
-                    window.location.reload();
+                    window.location.replace("/detail?issueid="+issue_id)
                 }
             }, "json");
         });

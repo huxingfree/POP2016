@@ -17,7 +17,11 @@ __author__ = 'Hu Xing'
 MONITOR_PORT = 9222
 VALID_TYPES = ['php', 'python', 'javaweb'] # valid runner types
 TIME_INTERVAL = 3600
-
+SENDER = '胡星<huxing0101@pku.edu.cn>'
+RECEIVIER = 'mass@sei.pku.edu.cn'
+SMTPSERVER = 'smtp.pku.edu.cn'
+USERNAME = 'huxing0101@pku.edu.cn'
+PASSWORD = 'xinfang1993'
 
 # format current time as a string
 def get_current_time(timestamp=None):
@@ -44,10 +48,31 @@ def reply(code, msg):
     return obj_to_json({'code': code, 'msg': msg})
 
 
+def check_homepage():
+    url = "http://www.poprogramming.com"
+    response = None
+    try:
+        response = urllib2.Request(url)
+        res = urllib2.urlopen(response, timeout=10)
+    except urllib2.URLError as e:
+        if hasattr(e, 'code'):
+            msgs = 'Error code:',e.code
+        elif hasattr(e, 'reason'):
+            msgs = 'Reason:',e.reason
+        SUBJECT = 'POP2016 minotor'
+        str = 'Homepage failure!', msgs
+        msg = MIMEText(str, 'plain', 'utf-8')
+        msg['Subject'] = SUBJECT
+        smtp = smtplib.SMTP()
+        smtp.connect(SMTPSERVER)
+        smtp.login(USERNAME,PASSWORD)
+        smtp.sendmail(SENDER,RECEIVIER,msg.as_string())
+        smtp.quit()
+
 app = Flask(__name__)
 
 
-@app.route("/",methods=['GET','POST'])
+@app.route("/", methods=['GET','POST'])
 def index():
     if session.get('username')=='admin' and session.get('password')=='admin':
         return redirect(url_for('userinfo'))
@@ -109,12 +134,7 @@ def runner_stat():
 
 
 def send_mail(report):
-    SENDER = '2269077178@qq.com'
-    RECEIVIER = 'huxing0101@pku.edu.cn'
     SUBJECT = 'POP2016 minotor'
-    SMTPSERVER = 'smtp.qq.com'
-    USERNAME = '2269077178@qq.com'
-    PASSWORD = ''
     str = '<html><h1>Warning!</h1></html>'+'<table border="1"><tr><th>Docker ID</th><th>CPU</th><th>mempercent</th></tr>'
     for st in report:
         str = str + '<tr><td>'+st['dockerid']+'</td><td>'+st['cpu']+'</td><td>'+st['mempercent']+'</td></tr>'

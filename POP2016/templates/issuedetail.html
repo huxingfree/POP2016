@@ -15,7 +15,7 @@
 <link rel="icon" href="../static/favicon.ico">
   <style type="text/css">
         div.panel, div.page-header {
-            width: 75%;
+            width: 70%;
             margin-left: auto;
             margin-right: auto;
         }
@@ -28,11 +28,11 @@
 	<div class="navbar navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand hidden-sm" href="">POP在线编程平台</a>
+				<a class="navbar-brand hidden-sm" href="http://www.poprogramming.com/console">POP在线编程平台</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="#create" data-toggle="modal">新建工单</a></li>
+					<li><a href="/create" data-toggle="modal">新建工单</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -43,16 +43,16 @@
 							<li><a href="#">常见问题</a></li>
 							<li><a href="#">意见反馈</a></li>
 							<li class="divider"></li>
-							<li><a href="/account">账号设置</a></li>
+							<li><a href="http://www.poprogramming.com/account">账号设置</a></li>
 						</ul></li>
-					<li><a href="http://123.57.2.1:80/logout" id="logout"><i
+					<li><a href="http://www.poprogramming.com/logout" id="logout"><i
 							class="fa fa-power-off"></i></a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	
-	<div class="panel panel-info">
+	<div class="panel panel-info" style="margin-left: 20%">
     	<div class="panel-heading">
         	<h4>工单详情</h4>
     	</div>
@@ -72,7 +72,7 @@
 		</ul>
 	</div>
 
-	<div class="panel panel-info">
+	<div class="panel panel-info" style="margin-left: 20%">
     	<div class="panel-heading">
         	<h4>沟通记录</h4>
     	</div>
@@ -90,7 +90,7 @@
 		</div>
 		{% endfor %}
 		<div>
-			<form class="form-horizontal add-communication">
+			<form class="form-horizontal add-communication" method="post">
 				<div>
 					<textarea id="content", name="content" style="width: 400px; height: 100px">
 					</textarea>
@@ -103,17 +103,18 @@
 		</div>
 	</div>
 
-	<div class="col-md-2">
+	<div class="col-md-2" >
 		<div class="selector">
 			<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
-				<li class="active"><a href="/list">所有工单</a></li>
+				<li class="active"><a href="/create">新建工单</a></li>
+                <li><a href="/list">所有工单</a></li>
 				<li><a href="/unsolved">待解决工单</a></li>
 				<li><a href="/solved">已解决工单</a></li>
 			</ul>
 		</div>
 	</div>
 
-	<!-- 新建工单 -->
+	<!-- 新建工单
 	<div class="modal fade" id="create">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -129,7 +130,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="type" class="col-sm-2 control-label">问题类型*</label>
-							<!-- 问题类型-->
+
 							<div class="col-sm-10">
 								<select class="form-control" id="type" name="type"  required autofocus>
 								<option value="开发" selected>开发</option>
@@ -144,7 +145,7 @@
 
 						<div class="form-group">
 							<label for="head" class="col-sm-2 control-label">问题标题*</label>
-							<!-- 问题标题-->
+
 							<div class="col-sm-10">
 								<input type="text" id="head" name="head"
 									class="col-sm-10 form-control" placeholder="标题长度限制为30字" required autofocus>
@@ -153,7 +154,7 @@
 
 						<div class="form-group">
 							<label for="body" class="col-sm-2 control-label">问题描述*</label>
-							<!-- 问题描述-->
+
 							<div class="col-sm-10">
 								<textarea type="text" id="body" name="body"
 									class="col-sm-10 form-control" placeholder="请详细描述问题" required autofocus>
@@ -169,11 +170,11 @@
                 		</div>
 
                 		<div class="form-group">
-							<label for="email" class="col-sm-2 control-label">联系邮箱*</label>
-							<!-- 联系邮箱-->
+							<label for="email" class="col-sm-2 control-label">联系邮箱</label>
+
 							<div class="col-sm-10">
 								<input type="text" id="email" name="email"
-									class="col-sm-10 form-control" placeholder="请输入联系邮箱" required autofocus>
+									class="col-sm-10 form-control">
 							</div>
 						</div>
 					</div>
@@ -186,7 +187,7 @@
 			</div>
 		</div>
 	</div>
-
+ -->
 	<script src="/static/lib/jquery/jquery-1.9.1.min.js"></script>
 	<script src="/static/lib/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 	<script src="/static/lib/jquery/jquery.cookie.js"></script>
