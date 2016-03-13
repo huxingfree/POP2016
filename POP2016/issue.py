@@ -81,7 +81,7 @@ def send_mail(issue):
     SUBJECT = 'POP2016 工单'
     SMTPSERVER = 'smtp.pku.edu.cn'
     USERNAME = 'huxing0101@pku.edu.cn'
-    PASSWORD = 'xinfang1993'
+    PASSWORD = ''
     content = '<html><h1>工单</h1></html>' + '<table border="1"><tr><th>Issue ID</th><th>问题类型</th><th>问题标题</th><th>详细情况</th></tr>'
     content += '<tr><td>' + str(issue['issue_id']) + '</td><td>' + issue['issue_type'] + '</td><td>' + issue[
         'issue_head'] + "</td><td><a href='http://123.57.2.1:4500/detail?uid=111&issueid=" + str(issue[

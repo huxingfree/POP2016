@@ -21,7 +21,7 @@ SENDER = '胡星<huxing0101@pku.edu.cn>'
 RECEIVIER = 'mass@sei.pku.edu.cn'
 SMTPSERVER = 'smtp.pku.edu.cn'
 USERNAME = 'huxing0101@pku.edu.cn'
-PASSWORD = 'xinfang1993'
+PASSWORD = ''
 
 # format current time as a string
 def get_current_time(timestamp=None):

@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82a4af28-5691-429f-a9a5-e567239429f4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/createissue.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/custom/css/console.css" afterPath="$PROJECT_DIR$/static/custom/css/console.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/issue.html" afterPath="$PROJECT_DIR$/templates/issue.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/custom/js/issue.js" afterPath="$PROJECT_DIR$/static/custom/js/issue.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/issue.py" afterPath="$PROJECT_DIR$/issue.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/issuedetail.html" afterPath="$PROJECT_DIR$/templates/issuedetail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/monitor.py" afterPath="$PROJECT_DIR$/monitor.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/userinfo.html" afterPath="$PROJECT_DIR$/templates/userinfo.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="POP2016.iws" />
@@ -32,25 +26,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="monitor.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="monitor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/monitor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47551686">
-              <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
               <folding>
                 <element signature="e#15#28#0" expanded="true" />
-                <marker date="1457859884433" expanded="true" signature="5932:6055" placeholder="insert into ..." />
-                <marker date="1457859884433" expanded="true" signature="6578:6664" placeholder="select time,..." />
-                <marker date="1457859884433" expanded="true" signature="8096:8114" placeholder="SELECT * FRO..user..." />
-                <marker date="1457859884433" expanded="true" signature="8410:8530" placeholder="select date_..." />
-                <marker date="1457859884433" expanded="true" signature="9380:9473" placeholder="SELECT id, s..service..." />
-                <marker date="1457859884433" expanded="true" signature="9731:9834" placeholder="SELECT id, s..service..." />
-                <marker date="1457859884433" expanded="true" signature="10156:10320" placeholder="SELECT app_n..app_instance..." />
-                <marker date="1457859884433" expanded="true" signature="11143:11219" placeholder="SELECT docke..." />
-                <marker date="1457859884433" expanded="true" signature="11312:11354" placeholder="SELECT servi..service..." />
-                <marker date="1457859884433" expanded="true" signature="12609:12681" placeholder="SELECT servi..service..." />
-                <marker date="1457859884433" expanded="true" signature="12966:13063" placeholder="INSERT INTO ..." />
-                <marker date="1457859884433" expanded="true" signature="13534:13631" placeholder="INSERT INTO ..." />
+                <marker date="1457861082541" expanded="true" signature="5921:6044" placeholder="insert into ..." />
+                <marker date="1457861082541" expanded="true" signature="6567:6653" placeholder="select time,..." />
+                <marker date="1457861082541" expanded="true" signature="8085:8103" placeholder="SELECT * FRO..user..." />
+                <marker date="1457861082541" expanded="true" signature="8399:8519" placeholder="select date_..." />
+                <marker date="1457861082541" expanded="true" signature="9369:9462" placeholder="SELECT id, s..service..." />
+                <marker date="1457861082541" expanded="true" signature="9720:9823" placeholder="SELECT id, s..service..." />
+                <marker date="1457861082541" expanded="true" signature="10145:10309" placeholder="SELECT app_n..app_instance..." />
+                <marker date="1457861082541" expanded="true" signature="11132:11208" placeholder="SELECT docke..." />
+                <marker date="1457861082541" expanded="true" signature="11301:11343" placeholder="SELECT servi..service..." />
+                <marker date="1457861082541" expanded="true" signature="12598:12670" placeholder="SELECT servi..service..." />
+                <marker date="1457861082541" expanded="true" signature="12955:13052" placeholder="INSERT INTO ..." />
+                <marker date="1457861082541" expanded="true" signature="13523:13620" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -122,49 +116,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="issue.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="issue.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/issue.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="83" column="28" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.3101197">
+              <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
               <folding>
                 <element signature="e#15#51#0" expanded="true" />
-                <marker date="1457428835494" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
-                <marker date="1457428835494" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
-                <marker date="1457428835494" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="3280:3315" placeholder="SELECT usern..user..." />
-                <marker date="1457428835494" expanded="true" signature="4155:4187" placeholder="SELECT email..user..." />
-                <marker date="1457428835494" expanded="true" signature="4851:4990" placeholder="INSERT INTO ..." />
-                <marker date="1457428835494" expanded="true" signature="5131:5253" placeholder="INSERT INTO ..." />
-                <marker date="1457428835494" expanded="true" signature="5421:5489" placeholder="SELECT id FR..issue..." />
-                <marker date="1457428835494" expanded="true" signature="6302:6333" placeholder="SELECT usern..user..." />
-                <marker date="1457428835494" expanded="true" signature="6302:6337" placeholder="SELECT usern..user..." />
-                <marker date="1457428835494" expanded="true" signature="6674:6711" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="6837:6900" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="6945:6990" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="7899:7936" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="7899:7938" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="8062:8114" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="8062:8142" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="8191:8254" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="9022:9059" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="9185:9265" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="9314:9377" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="10228:10263" placeholder="SELECT usern..user..." />
-                <marker date="1457428835494" expanded="true" signature="10622:10651" placeholder="SELECT * FRO..issue..." />
-                <marker date="1457428835494" expanded="true" signature="10744:10812" placeholder="SELECT * FRO..communication..." />
-                <marker date="1457428835494" expanded="true" signature="10957:10998" placeholder="SELECT is_su..user..." />
-                <marker date="1457428835494" expanded="true" signature="12190:12209" placeholder="delete FROM ..." />
-                <marker date="1457428835494" expanded="true" signature="12190:12221" placeholder="delete FROM ..." />
-                <marker date="1457428835494" expanded="true" signature="12190:12232" placeholder="delete FROM ..." />
-                <marker date="1457428835494" expanded="true" signature="12190:12233" placeholder="delete FROM ..." />
-                <marker date="1457428835494" expanded="true" signature="12313:12352" placeholder="select attac..issue..." />
-                <marker date="1457428835494" expanded="true" signature="12313:12353" placeholder="select attac..issue..." />
-                <marker date="1457428835494" expanded="true" signature="12569:12598" placeholder="delete FROM ..." />
-                <marker date="1457428835494" expanded="true" signature="13202:13218" placeholder="UPDATE issue..." />
-                <marker date="1457428835494" expanded="true" signature="13202:13241" placeholder="UPDATE issue..." />
-                <marker date="1457428835494" expanded="true" signature="13919:14009" placeholder="INSERT INTO ..." />
+                <marker date="1457861100057" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
+                <marker date="1457861100057" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
+                <marker date="1457861100057" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="3269:3304" placeholder="SELECT usern..user..." />
+                <marker date="1457861100057" expanded="true" signature="4144:4176" placeholder="SELECT email..user..." />
+                <marker date="1457861100057" expanded="true" signature="4840:4979" placeholder="INSERT INTO ..." />
+                <marker date="1457861100057" expanded="true" signature="5120:5242" placeholder="INSERT INTO ..." />
+                <marker date="1457861100057" expanded="true" signature="5410:5478" placeholder="SELECT id FR..issue..." />
+                <marker date="1457861100057" expanded="true" signature="6291:6322" placeholder="SELECT usern..user..." />
+                <marker date="1457861100057" expanded="true" signature="6291:6326" placeholder="SELECT usern..user..." />
+                <marker date="1457861100057" expanded="true" signature="6663:6700" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="6826:6889" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="6934:6979" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="7888:7925" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="7888:7927" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="8051:8103" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="8051:8131" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="8180:8243" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="9011:9048" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="9174:9254" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="9303:9366" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="10217:10252" placeholder="SELECT usern..user..." />
+                <marker date="1457861100057" expanded="true" signature="10611:10640" placeholder="SELECT * FRO..issue..." />
+                <marker date="1457861100057" expanded="true" signature="10733:10801" placeholder="SELECT * FRO..communication..." />
+                <marker date="1457861100057" expanded="true" signature="10946:10987" placeholder="SELECT is_su..user..." />
+                <marker date="1457861100057" expanded="true" signature="12179:12198" placeholder="delete FROM ..." />
+                <marker date="1457861100057" expanded="true" signature="12179:12210" placeholder="delete FROM ..." />
+                <marker date="1457861100057" expanded="true" signature="12179:12221" placeholder="delete FROM ..." />
+                <marker date="1457861100057" expanded="true" signature="12179:12222" placeholder="delete FROM ..." />
+                <marker date="1457861100057" expanded="true" signature="12302:12341" placeholder="select attac..issue..." />
+                <marker date="1457861100057" expanded="true" signature="12302:12342" placeholder="select attac..issue..." />
+                <marker date="1457861100057" expanded="true" signature="12558:12587" placeholder="delete FROM ..." />
+                <marker date="1457861100057" expanded="true" signature="13191:13207" placeholder="UPDATE issue..." />
+                <marker date="1457861100057" expanded="true" signature="13191:13230" placeholder="UPDATE issue..." />
+                <marker date="1457861100057" expanded="true" signature="13908:13998" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -219,10 +213,10 @@
         <option value="$PROJECT_DIR$/templates/createissue.html" />
         <option value="$PROJECT_DIR$/templates/issue.html" />
         <option value="$PROJECT_DIR$/templates/issuedetail.html" />
-        <option value="$PROJECT_DIR$/issue.py" />
         <option value="$PROJECT_DIR$/templates/userinfo.html" />
         <option value="$PROJECT_DIR$/static/custom/js/issue.js" />
         <option value="$PROJECT_DIR$/monitor.py" />
+        <option value="$PROJECT_DIR$/issue.py" />
       </list>
     </option>
   </component>
@@ -632,7 +626,13 @@
       <option name="project" value="LOCAL" />
       <updated>1457357907677</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="2016.3.13">
+      <created>1457861070514</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1457861070514</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -641,6 +641,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15260416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.098101266" sideWeight="0.50416666" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -650,7 +651,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -704,7 +704,8 @@
     <MESSAGE value="2016.3.1" />
     <MESSAGE value="2016.3.3" />
     <MESSAGE value="2016.3.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="2016.3.7" />
+    <MESSAGE value="2016.3.13" />
+    <option name="LAST_COMMIT_MESSAGE" value="2016.3.13" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1071,70 +1072,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/issue.py">
+    <entry file="file://$PROJECT_DIR$/monitor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="28" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
           <folding>
-            <element signature="e#15#51#0" expanded="true" />
-            <marker date="1457428835494" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
-            <marker date="1457428835494" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
-            <marker date="1457428835494" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="3280:3315" placeholder="SELECT usern..user..." />
-            <marker date="1457428835494" expanded="true" signature="4155:4187" placeholder="SELECT email..user..." />
-            <marker date="1457428835494" expanded="true" signature="4851:4990" placeholder="INSERT INTO ..." />
-            <marker date="1457428835494" expanded="true" signature="5131:5253" placeholder="INSERT INTO ..." />
-            <marker date="1457428835494" expanded="true" signature="5421:5489" placeholder="SELECT id FR..issue..." />
-            <marker date="1457428835494" expanded="true" signature="6302:6333" placeholder="SELECT usern..user..." />
-            <marker date="1457428835494" expanded="true" signature="6302:6337" placeholder="SELECT usern..user..." />
-            <marker date="1457428835494" expanded="true" signature="6674:6711" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="6837:6900" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="6945:6990" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="7899:7936" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="7899:7938" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="8062:8114" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="8062:8142" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="8191:8254" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="9022:9059" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="9185:9265" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="9314:9377" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="10228:10263" placeholder="SELECT usern..user..." />
-            <marker date="1457428835494" expanded="true" signature="10622:10651" placeholder="SELECT * FRO..issue..." />
-            <marker date="1457428835494" expanded="true" signature="10744:10812" placeholder="SELECT * FRO..communication..." />
-            <marker date="1457428835494" expanded="true" signature="10957:10998" placeholder="SELECT is_su..user..." />
-            <marker date="1457428835494" expanded="true" signature="12190:12209" placeholder="delete FROM ..." />
-            <marker date="1457428835494" expanded="true" signature="12190:12221" placeholder="delete FROM ..." />
-            <marker date="1457428835494" expanded="true" signature="12190:12232" placeholder="delete FROM ..." />
-            <marker date="1457428835494" expanded="true" signature="12190:12233" placeholder="delete FROM ..." />
-            <marker date="1457428835494" expanded="true" signature="12313:12352" placeholder="select attac..issue..." />
-            <marker date="1457428835494" expanded="true" signature="12313:12353" placeholder="select attac..issue..." />
-            <marker date="1457428835494" expanded="true" signature="12569:12598" placeholder="delete FROM ..." />
-            <marker date="1457428835494" expanded="true" signature="13202:13218" placeholder="UPDATE issue..." />
-            <marker date="1457428835494" expanded="true" signature="13202:13241" placeholder="UPDATE issue..." />
-            <marker date="1457428835494" expanded="true" signature="13919:14009" placeholder="INSERT INTO ..." />
+            <element signature="e#15#28#0" expanded="true" />
+            <marker date="1457861082541" expanded="true" signature="5921:6044" placeholder="insert into ..." />
+            <marker date="1457861082541" expanded="true" signature="6567:6653" placeholder="select time,..." />
+            <marker date="1457861082541" expanded="true" signature="8085:8103" placeholder="SELECT * FRO..user..." />
+            <marker date="1457861082541" expanded="true" signature="8399:8519" placeholder="select date_..." />
+            <marker date="1457861082541" expanded="true" signature="9369:9462" placeholder="SELECT id, s..service..." />
+            <marker date="1457861082541" expanded="true" signature="9720:9823" placeholder="SELECT id, s..service..." />
+            <marker date="1457861082541" expanded="true" signature="10145:10309" placeholder="SELECT app_n..app_instance..." />
+            <marker date="1457861082541" expanded="true" signature="11132:11208" placeholder="SELECT docke..." />
+            <marker date="1457861082541" expanded="true" signature="11301:11343" placeholder="SELECT servi..service..." />
+            <marker date="1457861082541" expanded="true" signature="12598:12670" placeholder="SELECT servi..service..." />
+            <marker date="1457861082541" expanded="true" signature="12955:13052" placeholder="INSERT INTO ..." />
+            <marker date="1457861082541" expanded="true" signature="13523:13620" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/monitor.py">
+    <entry file="file://$PROJECT_DIR$/issue.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47551686">
-          <caret line="89" column="13" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.3101197">
+          <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
           <folding>
-            <element signature="e#15#28#0" expanded="true" />
-            <marker date="1457859884433" expanded="true" signature="5932:6055" placeholder="insert into ..." />
-            <marker date="1457859884433" expanded="true" signature="6578:6664" placeholder="select time,..." />
-            <marker date="1457859884433" expanded="true" signature="8096:8114" placeholder="SELECT * FRO..user..." />
-            <marker date="1457859884433" expanded="true" signature="8410:8530" placeholder="select date_..." />
-            <marker date="1457859884433" expanded="true" signature="9380:9473" placeholder="SELECT id, s..service..." />
-            <marker date="1457859884433" expanded="true" signature="9731:9834" placeholder="SELECT id, s..service..." />
-            <marker date="1457859884433" expanded="true" signature="10156:10320" placeholder="SELECT app_n..app_instance..." />
-            <marker date="1457859884433" expanded="true" signature="11143:11219" placeholder="SELECT docke..." />
-            <marker date="1457859884433" expanded="true" signature="11312:11354" placeholder="SELECT servi..service..." />
-            <marker date="1457859884433" expanded="true" signature="12609:12681" placeholder="SELECT servi..service..." />
-            <marker date="1457859884433" expanded="true" signature="12966:13063" placeholder="INSERT INTO ..." />
-            <marker date="1457859884433" expanded="true" signature="13534:13631" placeholder="INSERT INTO ..." />
+            <element signature="e#15#51#0" expanded="true" />
+            <marker date="1457861100057" expanded="true" signature="1367:1391" placeholder="SELECT useri..issue..." />
+            <marker date="1457861100057" expanded="true" signature="1367:1401" placeholder="SELECT useri..issue..." />
+            <marker date="1457861100057" expanded="true" signature="1565:1601" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="1565:1602" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="3269:3304" placeholder="SELECT usern..user..." />
+            <marker date="1457861100057" expanded="true" signature="4144:4176" placeholder="SELECT email..user..." />
+            <marker date="1457861100057" expanded="true" signature="4840:4979" placeholder="INSERT INTO ..." />
+            <marker date="1457861100057" expanded="true" signature="5120:5242" placeholder="INSERT INTO ..." />
+            <marker date="1457861100057" expanded="true" signature="5410:5478" placeholder="SELECT id FR..issue..." />
+            <marker date="1457861100057" expanded="true" signature="6291:6322" placeholder="SELECT usern..user..." />
+            <marker date="1457861100057" expanded="true" signature="6291:6326" placeholder="SELECT usern..user..." />
+            <marker date="1457861100057" expanded="true" signature="6663:6700" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="6826:6889" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="6934:6979" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="7888:7925" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="7888:7927" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="8051:8103" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="8051:8131" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="8180:8243" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="9011:9048" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="9174:9254" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="9303:9366" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="10217:10252" placeholder="SELECT usern..user..." />
+            <marker date="1457861100057" expanded="true" signature="10611:10640" placeholder="SELECT * FRO..issue..." />
+            <marker date="1457861100057" expanded="true" signature="10733:10801" placeholder="SELECT * FRO..communication..." />
+            <marker date="1457861100057" expanded="true" signature="10946:10987" placeholder="SELECT is_su..user..." />
+            <marker date="1457861100057" expanded="true" signature="12179:12198" placeholder="delete FROM ..." />
+            <marker date="1457861100057" expanded="true" signature="12179:12210" placeholder="delete FROM ..." />
+            <marker date="1457861100057" expanded="true" signature="12179:12221" placeholder="delete FROM ..." />
+            <marker date="1457861100057" expanded="true" signature="12179:12222" placeholder="delete FROM ..." />
+            <marker date="1457861100057" expanded="true" signature="12302:12341" placeholder="select attac..issue..." />
+            <marker date="1457861100057" expanded="true" signature="12302:12342" placeholder="select attac..issue..." />
+            <marker date="1457861100057" expanded="true" signature="12558:12587" placeholder="delete FROM ..." />
+            <marker date="1457861100057" expanded="true" signature="13191:13207" placeholder="UPDATE issue..." />
+            <marker date="1457861100057" expanded="true" signature="13191:13230" placeholder="UPDATE issue..." />
+            <marker date="1457861100057" expanded="true" signature="13908:13998" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
