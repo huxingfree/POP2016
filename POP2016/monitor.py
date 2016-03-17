@@ -59,7 +59,7 @@ def check_homepage():
             msgs = 'Error code:',e.code
         elif hasattr(e, 'reason'):
             msgs = 'Reason:',e.reason
-        SUBJECT = 'POP2016 minotor'
+        SUBJECT = 'POP2016 monitor'
         str = 'Homepage failure!', msgs
         msg = MIMEText(str, 'plain', 'utf-8')
         msg['Subject'] = SUBJECT
@@ -134,7 +134,7 @@ def runner_stat():
 
 
 def send_mail(report):
-    SUBJECT = 'POP2016 minotor'
+    SUBJECT = 'POP2016 monitor'
     str = '<html><h1>Warning!</h1></html>'+'<table border="1"><tr><th>Docker ID</th><th>CPU</th><th>mempercent</th></tr>'
     for st in report:
         str = str + '<tr><td>'+st['dockerid']+'</td><td>'+st['cpu']+'</td><td>'+st['mempercent']+'</td></tr>'
@@ -207,6 +207,7 @@ def check_docker_stats():
             report.append(st)
     cursor.close()
     conn.close()
+    check_homepage()
     if len(report) > 0:
         send_mail(report)
     Timer(TIME_INTERVAL, check_docker_stats).start()
@@ -267,7 +268,7 @@ def userinfo():
 
     # user statistic
     users = []
-    sql = "SELECT * FROM user"
+    sql = "SELECT * FROM user ORDER BY last_login DESC"
     user_count = cursor.execute(sql)
     results = cursor.fetchall()
     for result in results:
