@@ -21,7 +21,7 @@ SENDER = '胡星<huxing0101@pku.edu.cn>'
 RECEIVIER = 'mass@sei.pku.edu.cn'
 SMTPSERVER = 'smtp.pku.edu.cn'
 USERNAME = 'huxing0101@pku.edu.cn'
-PASSWORD = ''
+PASSWORD = 'xinfang1993'
 
 # format current time as a string
 def get_current_time(timestamp=None):
@@ -50,17 +50,12 @@ def reply(code, msg):
 
 def check_homepage():
     url = "http://www.poprogramming.com"
-    response = None
     try:
         response = urllib2.Request(url)
         res = urllib2.urlopen(response, timeout=10)
     except urllib2.URLError as e:
-        if hasattr(e, 'code'):
-            msgs = 'Error code:',e.code
-        elif hasattr(e, 'reason'):
-            msgs = 'Reason:',e.reason
-        SUBJECT = 'POP2016 monitor'
-        str = 'Homepage failure!', msgs
+        SUBJECT = 'Homepage failure!'
+        str ='Homapage time out!'
         msg = MIMEText(str, 'plain', 'utf-8')
         msg['Subject'] = SUBJECT
         smtp = smtplib.SMTP()
@@ -74,7 +69,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET','POST'])
 def index():
-    if session.get('username')=='admin' and session.get('password')=='admin':
+    if session.get('username')=='admin' and session.get('password') == 'admin':
         return redirect(url_for('userinfo'))
     else:
         return render_template("index.html")
@@ -277,13 +272,18 @@ def userinfo():
 
     # online statistic
     onlines = []
-    sql = "select date_format(last_login,'%Y-%m-%d') as date, count(*) as count from user group by date order by date desc limit 30"
-    day_count = cursor.execute(sql)
+
+    sql = "select * from user where  date_format(last_login,'%Y-%m-%d') = curdate()"
+    count = cursor.execute(sql)
+    date = strftime('%Y-%m-%d', localtime(time()))
+    online = dict(date=date, count=count)
+    onlines.append(online)
+    sql = "SELECT * FROM online_user ORDER BY date DESC limit 30"
+    day_count = cursor.execute(sql) + 1
     results = cursor.fetchall()
     for result in results:
         online = dict(date=result[0], count=result[1])
         onlines.append(online)
-
     cursor.close()
     conn.close()
     return render_template('userinfo.html', user_count=user_count, users=users, day_count=day_count, onlines=onlines)

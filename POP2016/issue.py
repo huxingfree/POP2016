@@ -8,10 +8,15 @@ from flask import Flask, request, session, render_template, url_for
 from flask.json import dumps
 from werkzeug.utils import secure_filename, redirect
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 __author__ = 'Hu Xing'
-
+SENDER = '胡星<huxing0101@pku.edu.cn>'
+SUBJECT = 'POP2016 工单'
+SMTPSERVER = 'smtp.pku.edu.cn'
+USERNAME = 'huxing0101@pku.edu.cn'
+PASSWORD = ''
 ISSUE_PORT = 4500
 ATTACHMENT_ADDR = "/root/issue/static/attachment/"
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'gif', 'png'])
@@ -55,13 +60,13 @@ def check_valid(userid, issueid):
         sql = "SELECT userid FROM issue WHERE id=%d" % issueid
         count = cursor.execute(sql)
 
-        if count>0:
+        if count > 0:
             uid = cursor.fetchone()[0]
         else:
             return False
         sql = "SELECT is_super FROM user WHERE id = %d" % userid
         count = cursor.execute(sql)
-        if count>0:
+        if count > 0:
             is_super = cursor.fetchone()[0]
         else:
             return False
@@ -76,16 +81,11 @@ def check_valid(userid, issueid):
 
 
 def send_mail(issue):
-    SENDER = '胡星<huxing0101@pku.edu.cn>'
     RECEIVIER = 'mass@sei.pku.edu.cn'
-    SUBJECT = 'POP2016 工单'
-    SMTPSERVER = 'smtp.pku.edu.cn'
-    USERNAME = 'huxing0101@pku.edu.cn'
-    PASSWORD = ''
     content = '<html><h1>工单</h1></html>' + '<table border="1"><tr><th>Issue ID</th><th>问题类型</th><th>问题标题</th><th>详细情况</th></tr>'
     content += '<tr><td>' + str(issue['issue_id']) + '</td><td>' + issue['issue_type'] + '</td><td>' + issue[
         'issue_head'] + "</td><td><a href='http://123.57.2.1:4500/detail?uid=111&issueid=" + str(issue[
-              'issue_id']) + "' target='_blank'>查看详情</a></td></tr>"
+                                                                                                     'issue_id']) + "' target='_blank'>查看详情</a></td></tr>"
     content += '</table>'
     msg = MIMEText(content, 'html', 'utf-8')
     msg['Subject'] = SUBJECT
@@ -95,7 +95,7 @@ def send_mail(issue):
         smtp.login(USERNAME, PASSWORD)
         smtp.sendmail(SENDER, RECEIVIER, msg.as_string())
         smtp.quit()
-    except Exception,e:
+    except Exception, e:
         print str(e)
         print "Error: unable to send email"
 
@@ -150,7 +150,7 @@ def create_issue():
                 app.config['UPLOAD_FOLDER'] = attach_addr
                 filename = secure_filename(attachment.filename)
                 attachment.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                img_path = "/static/attachment/"+str(userid)+"/"+filename
+                img_path = "/static/attachment/" + str(userid) + "/" + filename
                 sql = "INSERT INTO issue(userid, create_time,issue_type, issue_head, issue_body, email, attachment) VALUES (%d, '%s','%s' ,'%s', '%s', '%s', '%s')" % (
                     userid, create_time, issue_type, issue_head, issue_body, email, img_path)
             else:
@@ -163,7 +163,8 @@ def create_issue():
             cursor.execute(sql)
             result = cursor.fetchone()
             issue_id = result[0]
-            issue = dict(issue_id=issue_id, issue_head=issue_head, issue_body=issue_body, email=email, issue_type=issue_type)
+            issue = dict(issue_id=issue_id, issue_head=issue_head, issue_body=issue_body, email=email,
+                         issue_type=issue_type)
             send_mail(issue)
             cursor.close()
             conn.close()
@@ -249,7 +250,7 @@ def unsolved_list():
             issues.append(issue)
         cursor.close()
         conn.close()
-        return render_template('issue.html', issues=issues, count=count,  username=session.get('username'))
+        return render_template('issue.html', issues=issues, count=count, username=session.get('username'))
     else:
         return dumps({'code': 1, 'msg': "permission denied"})
 
@@ -356,8 +357,8 @@ def delete_issue():
         sql = "select attachment FROM issue WHERE id = %d" % issue_id
         cursor.execute(sql)
         attachment = cursor.fetchone()[0]
-        if attachment and os.path.exists("/root/issue"+attachment):
-            os.remove("/root/issue"+attachment)
+        if attachment and os.path.exists("/root/issue" + attachment):
+            os.remove("/root/issue" + attachment)
         sql = "delete FROM issue WHERE id = %d" % issue_id
         cursor.execute(sql)
         conn.commit()
@@ -411,6 +412,27 @@ def add_communication():
             issue_id, userid, create_time, content)
         cursor.execute(sql)
         conn.commit()
+        sql = "SELECT is_super from user WHERE id=%d" % userid
+        cursor.execute(sql)
+        is_super = cursor.fetchone()[0]
+        if is_super == 1:
+            sql = "SELECT userid, email FROM issue WHERE id=%d" % issue_id
+            cursor.execute(sql)
+            result = cursor.fetchone()
+            RECEIVIER = result[1]
+            content = '<html><h1>工单</h1></html>' + "您的工单有解决进展请点击<a href='http://123.57.2.1:4500/detail?uid=" + str(
+                result[0]) + "&issueid=" + str(issue_id) + "' target='_blank'>查看</a>"
+            msg = MIMEText(content, 'html', 'utf-8')
+            msg['Subject'] = SUBJECT
+            try:
+                smtp = smtplib.SMTP()
+                smtp.connect(SMTPSERVER)
+                smtp.login(USERNAME, PASSWORD)
+                smtp.sendmail(SENDER, RECEIVIER, msg.as_string())
+                smtp.quit()
+            except Exception, e:
+                print str(e)
+                print "Error: unable to send email"
         cursor.close()
         conn.close()
         return dumps({'code': 0, 'msg': "Success"})
