@@ -1,7 +1,9 @@
 # coding:utf-8
+import os
 import urllib
 import urllib2
 from flask import *
+from werkzeug.utils import secure_filename
 from container_manager import *
 from json import loads, dumps
 import MySQLdb
@@ -21,7 +23,23 @@ SENDER = '胡星<huxing0101@pku.edu.cn>'
 RECEIVIER = 'mass@sei.pku.edu.cn'
 SMTPSERVER = 'smtp.pku.edu.cn'
 USERNAME = 'huxing0101@pku.edu.cn'
-PASSWORD = 'xinfang1993'
+PASSWORD = ''
+CODE_ADDR = "/root/data/service/admin/"
+ALLOWED_EXTENSIONS = set(['war'])
+ADMIN_ID = 111
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+def check_folder(addr):
+    if os.path.exists(addr):
+        return True
+    else:
+        return False
+
 
 # format current time as a string
 def get_current_time(timestamp=None):
@@ -373,6 +391,56 @@ def instance():
     cursor.close()
     conn.close()
     return render_template("instance.html", instances=instances,service_name=service_name)
+
+
+@app.route("/upload", methods=['GET', 'POST'])
+def upload_service():
+    if request.method == 'POST':
+        param = request.form
+        service_type = param.get('type', None)
+        port = int(param.get('port', None))
+        code_file = request.files.get('code', None)
+        service_name = param.get('service-name', None)
+        current_time = get_current_time()
+        if not os.path.exists(CODE_ADDR):
+            os.makedirs(CODE_ADDR)
+        if code_file and allowed_file(code_file.filename):
+            app.config['UPLOAD_FOLDER'] = CODE_ADDR
+            file_name = secure_filename(code_file.filename)
+            code_file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_name))
+            code, output = commands.getstatusoutput(" unzip -o %s/%s -d %s/%s" % (CODE_ADDR,file_name,CODE_ADDR,service_name ))
+        path = '/admin/' + service_name + '/'
+        node = 1
+        memory = None
+        overload = 1
+        conn = mysql_con()
+        cursor = conn.cursor()
+        sql = "SELECT * FROM service WHERE service_name='%s' AND owner_id=%d" % (service_name, ADMIN_ID)
+        cnt = cursor.execute(sql)
+        if cnt == 0:
+            sql = "INSERT INTO service(service_name, service_type, service_container_type, owner_id, create_date, issuper) VALUES ('%s', '%s', '%s', '%d', '%s', '%d')" % (service_name, service_type, service_type, ADMIN_ID, current_time, 1)
+            cursor.execute(sql)
+            conn.commit()
+        res = startservice(service_type, path, node, port, memory, overload)
+        res = loads(res)
+        if int(res['code']) != 0:
+            return res
+        else:
+            sql = "SELECT id FROM service WHERE service_name = '%s' AND issuper=1" % service_name
+            count = cursor.execute(sql)
+            result = cursor.fetchone()
+            sql = "DELETE FROM service_instance WHERE port =%d" % int(res['port'])
+            count = cursor.execute(sql)
+            sql = "INSERT INTO service_instance(dockerid,service_id,domain,port,sshport) VALUES ('%s',%d,'%s',%d,%d)" % (res['dockerid'],result[0],res['domain'],int(res['port']),int(res['sshport']))
+            try:
+                cursor.execute(sql)
+                conn.commit()
+            except Exception, e:
+                pass
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for('instance', id=result[0]))
 
 
 @app.route("/delete_instance",methods=['GET','POST'])

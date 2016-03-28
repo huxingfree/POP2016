@@ -176,12 +176,12 @@
 				</div>
 				<!-- <form class="form-horizontal" id="create-form"> -->
 
-                <form class="form-horizontal create-form">
+                <form class="form-horizontal create-form" action="/upload" method="post" enctype="multipart/form-data">
                     <div class="modal-body create-service">
 
                         <div class="form-group">
                             <label for="service-name" class="col-sm-2 control-label">Name*</label>
-                            <!-- 服务名称-->
+
                             <div class="col-sm-10">
                                 <input type="text" id="service-name" name="service-name"
                                     class="col-sm-10 form-control" placeholder="Please input the name of the service" required
@@ -190,21 +190,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="service-type" class="col-sm-2 control-label">Type*</label>
-                            <!-- 服务类型-->
+							<label for="type" class="col-sm-2 control-label">Type*</label>
+							<!-- 服务类型-->
+							<div class="col-sm-10">
+								<select class="form-control" id="type" name="type"  required autofocus>
+								<option value="tomcat" selected>tomcat</option>
+								<option value="tomcat7">tomcat7</option>
+								<option value="gateone">gateone</option>
+							</select>
+							</div>
+						</div>
+
+                        <div class="form-group">
+                            <label for="port" class="col-sm-2 control-label">Port*</label>
                             <div class="col-sm-10">
-                                <input type="text" id="service-type" name="service-type"
-                                    class="col-sm-10 form-control" placeholder="Please input the type of the service" required
+                                <input type="text" id="port" name="port"
+                                    class="col-sm-10 form-control" placeholder="Please input the Port of the service" required
                                     autofocus>
                             </div>
                         </div>
                             <!-- 代码包-->
                         <div class="form-group">
-                            <label for="file" class="col-sm-2 control-label">代码包*</label>
+                            <label for="code" class="col-sm-2 control-label">代码包</label>
                             <div class="col-sm-10">
-                                <input type="file" id="file" name="file"
-                                  class="col-sm-10 form-control"  required
-                                  multiple>
+                                <input type="file" id="code" name="code"
+                                  class="col-sm-10 form-control">
                             </div>
                         </div>
                     </div>
